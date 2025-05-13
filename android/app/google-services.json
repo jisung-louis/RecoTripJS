@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "824476110960",
+    "project_id": "recotrip-2d997",
+    "storage_bucket": "recotrip-2d997.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:824476110960:android:767255fec712a4b77724b5",
+        "android_client_info": {
+          "package_name": "com.jisung.recotrip"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXYyUscpP16mADGpvcnv-f_ogJW5EblMI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

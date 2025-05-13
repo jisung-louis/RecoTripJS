@@ -9,6 +9,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import StackNavigator from './src/navigation/StackNavigator';
+import './src/services/firebase'; // Firebase 초기화
 
 function App(): React.JSX.Element {
   return (
