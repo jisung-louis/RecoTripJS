@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -12,36 +12,72 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../navigation/StackNavigator';
 import DefaultProfile from './DefaultProfile';
+import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 
 type CustomDrawerNavigationProp = NativeStackNavigationProp<RootStackParamList>;
 
 const CustomDrawer = (props: any) => {
   const navigation = useNavigation<CustomDrawerNavigationProp>();
-  const isLoggedIn = false; // TODO: 실제 로그인 상태로 변경
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [nickname, setNickname] = useState<string>('');
+  const [user, setUser] = useState<any>(null);
+
+  useEffect(() => {
+    const unsubscribe = auth().onAuthStateChanged(async (user) => {
+      setIsLoggedIn(!!user);
+      setUser(user);
+      if (user) {
+        // Firestore에서 닉네임 불러오기
+        try {
+          const doc = await firestore().collection('users').doc(user.uid).get();
+          setNickname(doc.exists() ? doc.data()?.nickname || '' : '');
+        } catch (e) {
+          setNickname('');
+        }
+      } else {
+        setNickname('');
+      }
+    });
+
+    return unsubscribe;
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      await auth().signOut();
+    } catch (error) {
+      console.error('로그아웃 실패:', error);
+    }
+  };
 
   return (
     <DrawerContentScrollView {...props}>
       <View style={styles.drawerContent}>
         {/* 프로필 섹션 */}
-        <View style={styles.profileSection}>
-          {isLoggedIn ? (
+        <TouchableOpacity
+          style={styles.profileSection}
+          activeOpacity={0.8}
+          onPress={() => {
+            if (isLoggedIn) {
+              navigation.navigate('MainStack', { screen: 'Profile' });
+            } else {
+              navigation.navigate('MainStack', { screen: 'Login' });
+            }
+          }}
+        >
+          {isLoggedIn && user?.photoURL ? (
             <Image
-              source={{ uri: 'https://via.placeholder.com/100' }}
-              style={styles.profileImage}
+              source={{ uri: user.photoURL }}
+              style={[styles.profileImage, { borderWidth: 2, borderColor: '#1CB5A3' }]}
             />
           ) : (
             <DefaultProfile />
           )}
-          <TouchableOpacity
-            onPress={() => {
-              // TODO: 로그인/프로필 화면으로 이동
-            }}
-          >
-            <Text style={styles.profileName}>
-              {isLoggedIn ? '사용자 닉네임' : '로그인'}
-            </Text>
-          </TouchableOpacity>
-        </View>
+          <Text style={styles.profileName}>
+            {isLoggedIn ? nickname || '닉네임 없음' : '로그인'}
+          </Text>
+        </TouchableOpacity>
 
         {/* 메뉴 아이템들 */}
         <View style={styles.menuSection}>
@@ -73,9 +109,7 @@ const CustomDrawer = (props: any) => {
           {isLoggedIn && (
             <TouchableOpacity
               style={styles.menuItem}
-              onPress={() => {
-                // TODO: 로그아웃 처리
-              }}
+              onPress={handleLogout}
             >
               <Text style={[styles.menuText, styles.logoutText]}>로그아웃</Text>
             </TouchableOpacity>
@@ -106,6 +140,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#333',
+    marginTop: 10,
   },
   menuSection: {
     paddingTop: 20,

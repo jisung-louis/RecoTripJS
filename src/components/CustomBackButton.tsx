@@ -7,13 +7,14 @@ interface CustomBackButtonProps {
   style?: ViewStyle;
   color?: string;
   size?: number;
+  onPress?: () => void;
 }
 
-const CustomBackButton: React.FC<CustomBackButtonProps> = ({ style, color = '#222', size = 28 }) => {
+const CustomBackButton: React.FC<CustomBackButtonProps> = ({ style, color = '#222', size = 28, onPress }) => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
-      onPress={() => navigation.goBack()}
+      onPress={onPress ? onPress : () => navigation.goBack()}
       style={[styles.button, style]}
       hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
     >

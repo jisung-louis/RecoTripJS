@@ -12,7 +12,9 @@ import {
   Alert,
 } from 'react-native';
 import auth from '@react-native-firebase/auth';
+import firestore from '@react-native-firebase/firestore';
 import Icon from 'react-native-vector-icons/Ionicons';
+import CustomBackButton from '../components/CustomBackButton';
 
 const THEME_COLOR = '#1CB5A3';
 const DEEP_COLOR = '#197C6B';
@@ -21,6 +23,7 @@ const LoginScreen = ({ navigation }: any) => {
   const [isSignUp, setIsSignUp] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [nickname, setNickname] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -29,7 +32,12 @@ const LoginScreen = ({ navigation }: any) => {
     setError('');
     try {
       if (isSignUp) {
-        await auth().createUserWithEmailAndPassword(email.trim(), password);
+        const userCredential = await auth().createUserWithEmailAndPassword(email.trim(), password);
+        // Firestore에 닉네임 저장
+        await firestore().collection('users').doc(userCredential.user.uid).set({
+          nickname: nickname.trim(),
+          email: email.trim(),
+        });
         Alert.alert('회원가입 완료', '이메일로 회원가입이 완료되었습니다.');
       } else {
         await auth().signInWithEmailAndPassword(email.trim(), password);
@@ -48,6 +56,9 @@ const LoginScreen = ({ navigation }: any) => {
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#F6FDFD' }}>
+      <View style={styles.header}>
+        <CustomBackButton />
+      </View>
       <KeyboardAvoidingView
         style={{ flex: 1 }}
         behavior={Platform.OS === 'ios' ? 'padding' : undefined}
@@ -62,6 +73,15 @@ const LoginScreen = ({ navigation }: any) => {
 
           {/* 입력 폼 */}
           <View style={styles.formBox}>
+            {isSignUp && (
+              <TextInput
+                style={styles.input}
+                placeholder="닉네임"
+                placeholderTextColor="#B6F2E6"
+                value={nickname}
+                onChangeText={setNickname}
+              />
+            )}
             <TextInput
               style={styles.input}
               placeholder="이메일"
@@ -83,7 +103,7 @@ const LoginScreen = ({ navigation }: any) => {
             <TouchableOpacity
               style={styles.authButton}
               onPress={handleAuth}
-              disabled={loading || !email || !password}
+              disabled={loading || !email || !password || (isSignUp && !nickname)}
               activeOpacity={0.85}
             >
               {loading ? (
@@ -112,6 +132,10 @@ const LoginScreen = ({ navigation }: any) => {
 };
 
 const styles = StyleSheet.create({
+  header: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+  },
   container: {
     flex: 1,
     justifyContent: 'center',

@@ -24,14 +24,19 @@ export interface Hotel {
   place_id?: string;
 }
 
+interface City {
+  name: string;
+  country?: string;
+}
+
 interface TripState {
   // 여행 기본 정보
   tripName: string;
   startDate: Date | null;
   endDate: Date | null;
-  selectedCity: string | null;
+  selectedCity: City | null;
   selectedLandmarks: Place[];
-  selectedPeople: string[];
+  selectedPeople: number;
   selectedKeywords: string[];
   selectedFlight: {
     departure: string;
@@ -49,10 +54,10 @@ interface TripState {
   // 액션들
   setTripName: (name: string) => void;
   setDates: (start: Date | null, end: Date | null) => void;
-  setSelectedCity: (city: string | null) => void;
+  setSelectedCity: (city: City | null) => void;
   addLandmark: (place: Place) => void;
   removeLandmark: (place_id: string) => void;
-  setSelectedPeople: (people: string[]) => void;
+  setSelectedPeople: (people: number) => void;
   setSelectedFlight: (flight: TripState['selectedFlight']) => void;
   setSelectedRoute: (route: TripState['selectedRoute']) => void;
   setSelectedLodging: (lodging: { [day: number]: Hotel }) => void;
@@ -70,7 +75,7 @@ export const useTripStore = create<TripState>((set) => ({
   endDate: null,
   selectedCity: null,
   selectedLandmarks: [],
-  selectedPeople: [],
+  selectedPeople: 1,
   selectedKeywords: ['도심', '쇼핑'],
   selectedFlight: null,
   selectedRoute: null,
@@ -127,7 +132,7 @@ export const useTripStore = create<TripState>((set) => ({
     endDate: null,
     selectedCity: null,
     selectedLandmarks: [],
-    selectedPeople: [],
+    selectedPeople: 1,
     selectedKeywords: [],
     selectedFlight: null,
     selectedRoute: null,

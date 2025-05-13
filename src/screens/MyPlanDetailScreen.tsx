@@ -1,122 +1,80 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, FlatList, Alert, Dimensions, Platform, Image, TouchableOpacity, Modal, ScrollView, Button } from 'react-native';
+import React, { useRef, useEffect, useState } from 'react';
+import { View, Text, StyleSheet, SafeAreaView, FlatList, Dimensions, Platform, Image, TouchableOpacity, Modal, ScrollView, Button, Alert } from 'react-native';
 import MapView, { Polyline, Marker, LatLng, PROVIDER_GOOGLE, Callout } from 'react-native-maps';
 import CustomBackButton from '../components/CustomBackButton';
-import CustomButton from '../components/CustomButton';
-import { useTripStore, Place, RouteDay, Hotel } from '../store/useTripStore';
-import { useNavigation } from '@react-navigation/native';
+import { useRoute, useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RootStackParamList } from '../navigation/StackNavigator';
 import Icon from 'react-native-vector-icons/Ionicons';
-import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
-import { CommonActions } from '@react-navigation/native';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
-// 직접 타입 정의
-interface MapViewRef {
-  animateToRegion: (region: {
-    latitude: number;
-    longitude: number;
-    latitudeDelta: number;
-    longitudeDelta: number;
-  }, duration: number) => void;
-}
-
-interface MarkerRef {
-  showCallout: () => void;
-}
-
-interface PlanPlace {
-  name: string;
-  latlng: LatLng | null;
-  photo?: string | null;
-  address?: string;
-  rating?: number;
-}
-interface PlanDay {
-  day: number;
-  places: PlanPlace[];
-  lodging: (Hotel & { latlng: LatLng | null }) | null;
-}
-
-// 더 구분감 있는 색상
 const POLYLINE_COLORS = ['#1976D2', '#C62828', '#2E7D32', '#F9A825', '#6A1B9A', '#00838F', '#FF7043', '#7B1FA2'];
 
-const getPlanData = (routes: RouteDay[], landmarks: Place[], lodging: { [day: number]: Hotel }): PlanDay[] => {
-  return routes.map((route: RouteDay) => {
-    const places: PlanPlace[] = route.places.map((name: string) => {
-      const found = landmarks.find((p: Place) => p.name === name);
-      return found
-        ? {
-            name: found.name,
-            latlng: { latitude: found.location.lat, longitude: found.location.lng },
-            photo: found.photo,
-            address: found.address,
-            rating: found.rating,
-          }
-        : { name, latlng: null };
-    });
-    let lodgingInfo: (Hotel & { latlng: LatLng | null }) | null = null;
-    const hotel = lodging && lodging[route.day];
-    if (hotel) {
-      lodgingInfo = {
-        ...hotel,
-        latlng: hotel.location
-          ? { latitude: hotel.location.lat, longitude: hotel.location.lng }
-          : null,
-      };
-    }
-    return { day: route.day, places, lodging: lodgingInfo };
-  });
-};
-
-// Polyline 경로: [전날 숙소, ...관광지, 오늘 숙소]
-const getAllRouteCoords = (plan: PlanDay[]): LatLng[][] => {
-  return plan.map((day: PlanDay, idx: number) => {
+const getAllRouteCoords = (plan: any[]) => {
+  return plan.map((day: any, idx: number) => {
     const coords: LatLng[] = [];
-    // 2일차부터는 전날 숙소에서 출발
-    if (idx > 0) {
-      const prevLodging = plan[idx - 1].lodging;
-      if (prevLodging?.latlng) {
-        coords.push(prevLodging.latlng);
-      }
-    }
-    day.places.forEach((p: PlanPlace) => {
-      if (p.latlng) {
-        coords.push(p.latlng);
-      }
-    });
-    if (day.lodging?.latlng) {
+    if (idx > 0 && day.lodging?.latlng) {
       coords.push(day.lodging.latlng);
     }
+    day.places.forEach((p: any) => {
+      if (p.latlng) coords.push(p.latlng);
+    });
+    if (day.lodging?.latlng) coords.push(day.lodging.latlng);
     return coords;
   });
 };
 
-const FinalScreen = () => {
+const MyPlanDetailScreen = () => {
+  const route = useRoute<any>();
   const navigation = useNavigation<DrawerNavigationProp<RootStackParamList, 'MainStack'>>();
-  const tripState = useTripStore();
-  const { routes, selectedLandmarks, selectedLodging, tripName, startDate, endDate, selectedPeople, selectedKeywords } = tripState;
-  const selectedCity = tripState.selectedCity;
-
-  const plan: PlanDay[] = getPlanData(routes, selectedLandmarks, selectedLodging);
-  const routeCoords: LatLng[][] = getAllRouteCoords(plan);
-  const [modalVisible, setModalVisible] = useState(false);
+  const plan = route.params?.plan;
   const [selectedDay, setSelectedDay] = useState<number | null>(null);
   const [mapModalVisible, setMapModalVisible] = useState(false);
-
-  // 지도/마커 ref 관리
   const mapRef = useRef<MapView>(null);
-  const markerRefs = useRef<{ [key: string]: MarkerRef | null }>({});
+  const markerRefs = useRef<{ [key: string]: any }>({});
 
-  // 모든 마커 좌표 수집
+  // 실제 플랜 데이터 구조 맞추기
+  const planDays = plan?.routes?.map((route: any) => {
+    const places = route.places.map((placeName: string) => {
+      // selectedLandmarks에서 name이 일치하는 landmark 찾기
+      const found = Array.isArray(plan.selectedLandmarks)
+        ? plan.selectedLandmarks.find((lm: any) => lm.name === placeName)
+        : null;
+      if (found && found.location) {
+        return {
+          name: found.name,
+          latlng: {
+            latitude: found.location.lat,
+            longitude: found.location.lng,
+          },
+          ...found,
+        };
+      }
+      // 못 찾으면 더미 좌표
+      return { name: placeName, latlng: { latitude: 37.5665, longitude: 126.9780 } };
+    });
+    let lodgingInfo = null;
+    if (plan.selectedLodging && plan.selectedLodging[route.day]) {
+      const lodging = plan.selectedLodging[route.day];
+      lodgingInfo = {
+        ...lodging,
+        latlng: lodging.location
+          ? {
+              latitude: lodging.location.lat,
+              longitude: lodging.location.lng,
+            }
+          : { latitude: 37.5700, longitude: 126.9769 },
+      };
+    }
+    return { day: route.day, places, lodging: lodgingInfo };
+  }) || [];
+  const routeCoords = getAllRouteCoords(planDays);
+
   useEffect(() => {
     if (!mapRef.current) return;
-    // 모든 관광지/숙소 좌표
-    const allCoords: LatLng[] = plan.flatMap(day => [
-      ...day.places.filter(p => p.latlng).map(p => p.latlng as LatLng),
+    const allCoords: LatLng[] = planDays.flatMap((day: any) => [
+      ...day.places.filter((p: any) => p.latlng).map((p: any) => p.latlng),
       ...(day.lodging?.latlng ? [day.lodging.latlng] : []),
     ]);
     if (allCoords.length > 0) {
@@ -127,125 +85,63 @@ const FinalScreen = () => {
         });
       }, 400);
     }
-  }, [plan.length]);
+  }, [planDays.length]);
 
-  // 리스트에서 관광지 클릭 시 해당 마커로 이동 및 Callout 오픈
   const focusMarker = (dayIdx: number, placeIdx: number, latlng: LatLng | null) => {
     if (!mapRef.current) return;
-    // 해당 일차의 모든 마커 좌표 구하기
-    const dayPlan = plan[dayIdx];
+    const dayPlan = planDays[dayIdx];
     const coords: LatLng[] = [
-      ...dayPlan.places.filter(p => p.latlng).map(p => p.latlng as LatLng),
-    ]; // 관광지
-    if (dayPlan.lodging?.latlng) coords.push(dayPlan.lodging.latlng); // 숙소
+      ...dayPlan.places.filter((p: any) => p.latlng).map((p: any) => p.latlng),
+    ];
+    if (dayPlan.lodging?.latlng) coords.push(dayPlan.lodging.latlng);
     if (coords.length > 0) {
-      // fitToCoordinates로 모든 마커가 보이게 하고, 클릭한 마커가 중심에 오도록 edgePadding 조정
       (mapRef.current as any).fitToCoordinates(coords, {
-        edgePadding: {
-          top: 80,
-          bottom: 80,
-          left: 80,
-          right: 80,
-        },
+        edgePadding: { top: 80, bottom: 80, left: 80, right: 80 },
         animated: true,
       });
-      // 클릭한 마커 Callout 오픈 (약간의 딜레이)
-      const refKey = `place-${dayIdx}-${placeIdx}`;
+      let refKey = placeIdx === -1 ? `lodging-${dayIdx}` : `place-${dayIdx}-${placeIdx}`;
       setTimeout(() => {
         markerRefs.current[refKey]?.showCallout();
       }, 600);
     }
   };
 
-  // 선택된 날짜의 경로만 표시
   const getFilteredRouteCoords = () => {
     if (selectedDay === null) return routeCoords;
     return [routeCoords[selectedDay]];
   };
-
-  // 선택된 날짜의 마커만 표시
   const getFilteredMarkers = () => {
-    if (selectedDay === null) return plan;
-    return [plan[selectedDay]];
+    if (selectedDay === null) return planDays;
+    return [planDays[selectedDay]];
   };
-
-  // 지도 확대 버튼 클릭 시에만 모달 오픈
   const handleExpandMap = () => setMapModalVisible(true);
-
-  // n일차 텍스트 클릭 시 해당 일차만 지도에 표시, 다시 누르면 전체 표시
   const handleDayTitlePress = (index: number) => {
     setSelectedDay(selectedDay === index ? null : index);
   };
 
-  // 저장하기 버튼 핸들러
-  const handleSavePlan = async () => {
-    const currentUser = auth().currentUser;
-    if (!currentUser) {
-      navigation.navigate('MainStack', { screen: 'Login' });
-      return;
-    }
-    // tripName 자동 생성
-    let cityName = '';
-    if (selectedCity && selectedCity.name) {
-      cityName = selectedCity.name;
-    }
-    const formatDate = (date: any) => {
-      if (!date) return '';
-      const d = new Date(date.seconds ? date.seconds * 1000 : date);
-      return `${d.getMonth() + 1}/${d.getDate()}`;
-    };
-    const tripNameAuto = `${cityName} 여행 ${formatDate(startDate)} ~ ${formatDate(endDate)}`;
-    try {
-      await firestore().collection('plans').add({
-        userId: currentUser.uid,
-        tripName: tripNameAuto,
-        startDate,
-        endDate,
-        selectedPeople,
-        selectedKeywords,
-        routes,
-        selectedLandmarks,
-        selectedLodging,
-        selectedCity,
-        createdAt: firestore.FieldValue.serverTimestamp(),
-      });
-      Alert.alert('저장 완료', '여행 플랜이 저장되었습니다.');
-      navigation.reset({
-        index: 0,
-        routes: [
-          { name: 'MainStack', params: { screen: 'MyPlan' } }
-        ],
-      });
-    } catch (e) {
-      Alert.alert('저장 실패', '플랜 저장 중 오류가 발생했습니다.');
-    }
-  };
-
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#F6FDFD' }}>
-      {/* 1. 여행 요약 카드 + BackButton */}
       <View style={styles.header}>
         <CustomBackButton />
-        <Text style={styles.title}>여행 플랜 요약</Text>
+        <Text style={styles.title}>{plan?.tripName || '여행 플랜 상세'}</Text>
       </View>
       <View style={styles.summaryCard}>
-        <Text style={styles.summaryTitle}>{tripName || '여행 플랜'}</Text>
+        <Text style={styles.summaryTitle}>{plan?.tripName || '여행 플랜'}</Text>
         <Text style={styles.summaryText}>
-          {startDate ? new Date(startDate).toLocaleDateString() : ''} ~ {endDate ? new Date(endDate).toLocaleDateString() : ''} | {selectedPeople}명
+          {plan?.startDate?.toDate ? plan.startDate.toDate().toLocaleDateString() : ''} ~ {plan?.endDate?.toDate ? plan.endDate.toDate().toLocaleDateString() : ''} | {typeof plan?.selectedPeople === 'number' ? plan.selectedPeople : 0}명
         </Text>
         <Text style={styles.summaryText}>
-          {selectedKeywords.map(k => `#${k}`).join(' ')}
+          {plan?.selectedKeywords?.map((k: string) => `#${k}`).join(' ')}
         </Text>
       </View>
-      {/* 2. 지도 개선 */}
       <View style={styles.mapContainer}>
         <MapView
           ref={mapRef}
           provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : undefined}
           style={styles.map}
           initialRegion={{
-            latitude: routeCoords[0]?.[0]?.latitude || 35.6895,
-            longitude: routeCoords[0]?.[0]?.longitude || 139.6917,
+            latitude: 37.5665,
+            longitude: 126.9780,
             latitudeDelta: 0.1,
             longitudeDelta: 0.1,
           }}
@@ -264,12 +160,12 @@ const FinalScreen = () => {
               />
             )
           ))}
-          {getFilteredMarkers().map((day, dayIdx) => (
+          {getFilteredMarkers().map((day: any, dayIdx: number) => (
             <React.Fragment key={day.day}>
-              {day.places.map((place, idx) =>
+              {day.places.map((place: any, idx: number) =>
                 place.latlng ? (
                   <Marker
-                    ref={(ref: MarkerRef | null) => {
+                    ref={(ref: any) => {
                       if (ref) {
                         markerRefs.current[`place-${dayIdx}-${idx}`] = ref;
                       }
@@ -286,6 +182,11 @@ const FinalScreen = () => {
               )}
               {day.lodging && day.lodging.latlng && (
                 <Marker
+                  ref={(ref: any) => {
+                    if (ref) {
+                      markerRefs.current[`lodging-${dayIdx}`] = ref;
+                    }
+                  }}
                   key={`lodging-${day.day}`}
                   coordinate={day.lodging.latlng}
                   pinColor={POLYLINE_COLORS[(selectedDay ?? dayIdx) % POLYLINE_COLORS.length]}
@@ -302,80 +203,44 @@ const FinalScreen = () => {
           <Icon name="expand-outline" size={24} color="#197C6B" />
         </TouchableOpacity>
       </View>
-      {/* 3. 일정 리스트 개선 */}
       <FlatList
-        data={plan}
-        keyExtractor={(item: PlanDay) => item.day.toString()}
+        data={planDays}
+        keyExtractor={(item: any) => item.day.toString()}
         contentContainerStyle={styles.listContainer}
-        renderItem={({ item, index }: { item: PlanDay, index: number }) => (
+        renderItem={({ item, index }) => (
           <View style={styles.dayCard}>
             <TouchableOpacity onPress={() => handleDayTitlePress(index)}>
               <Text style={[styles.dayTitle, selectedDay === index && { color: POLYLINE_COLORS[index % POLYLINE_COLORS.length] }]}>{item.day}일차</Text>
             </TouchableOpacity>
-            {item.places.map((place: PlanPlace, idx: number) => (
+            {item.places.map((place: any, idx: number) => (
               <TouchableOpacity key={idx} onPress={() => focusMarker(index, idx, place.latlng)} style={styles.placeRow}>
-                {place.photo && <Image source={{ uri: place.photo }} style={styles.placeThumb} />}
+                {place.photo && (
+                  <Image source={{ uri: place.photo }} style={styles.placeThumb} />
+                )}
                 <View style={{ flex: 1 }}>
                   <Text style={styles.placeText}>• {place.name}</Text>
-                  {place.address && <Text style={styles.placeDesc}>{place.address}</Text>}
-                  {place.rating && <Text style={styles.placeRating}>⭐ {place.rating.toFixed(1)}</Text>}
+                  {place.address && (
+                    <Text style={styles.placeDesc}>{place.address}</Text>
+                  )}
+                  {place.rating !== undefined && place.rating !== null && (
+                    <Text style={styles.placeRating}>⭐ {place.rating.toFixed(1)}</Text>
+                  )}
                 </View>
               </TouchableOpacity>
             ))}
             {item.lodging && (
               <TouchableOpacity 
-                onPress={() => item.lodging?.latlng && focusMarker(index, -1, item.lodging.latlng)} 
+                onPress={() => item.lodging?.latlng && focusMarker(index, -1, item.lodging.latlng)}
                 style={styles.placeRow}
               >
-                {item.lodging.image && <Image source={{ uri: item.lodging.image }} style={styles.placeThumb} />}
                 <View style={{ flex: 1 }}>
                   <Text style={styles.lodgingTitle}>숙소: {item.lodging.name}</Text>
-                  {item.lodging.address && <Text style={styles.placeDesc}>{item.lodging.address}</Text>}
-                  {item.lodging.rating && <Text style={styles.placeRating}>⭐ {item.lodging.rating.toFixed(1)}</Text>}
                 </View>
               </TouchableOpacity>
             )}
           </View>
         )}
       />
-      <View style={styles.bottomBar}>
-        <CustomButton
-          title="저장하기"
-          type="primary"
-          onPress={handleSavePlan}
-          style={styles.saveButton}
-        />
-      </View>
-      {/* 저장값 미리보기 모달 */}
-      <Modal
-        visible={modalVisible}
-        animationType="slide"
-        transparent={true}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.4)', justifyContent: 'center', alignItems: 'center' }}>
-          <View style={{ backgroundColor: '#fff', borderRadius: 16, padding: 24, width: '85%', maxHeight: '80%' }}>
-            <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 12, color: '#197C6B' }}>스토어 저장값 미리보기</Text>
-            <ScrollView style={{ maxHeight: 350 }}>
-              <Text style={{ fontSize: 13, color: '#333' }}>{JSON.stringify(tripState, null, 2)}</Text>
-            </ScrollView>
-            <Button
-              title="확인하고 홈으로"
-              onPress={() => {
-                setModalVisible(false);
-                tripState.clearTrip();
-                navigation.reset({
-                  index: 0,
-                  routes: [
-                    { name: 'MainStack', params: { screen: 'Home' } }
-                  ],
-                });
-              }}
-              color="#1CB5A3"
-            />
-          </View>
-        </View>
-      </Modal>
       {/* 지도 확대 모달 */}
       <Modal
         visible={mapModalVisible}
@@ -395,8 +260,8 @@ const FinalScreen = () => {
               provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : undefined}
               style={styles.modalMap}
               initialRegion={{
-                latitude: routeCoords[0]?.[0]?.latitude || 35.6895,
-                longitude: routeCoords[0]?.[0]?.longitude || 139.6917,
+                latitude: planDays[0]?.places[0]?.latlng?.latitude || 37.5665,
+                longitude: planDays[0]?.places[0]?.latlng?.longitude || 126.9780,
                 latitudeDelta: 0.1,
                 longitudeDelta: 0.1,
               }}
@@ -411,9 +276,9 @@ const FinalScreen = () => {
                   />
                 )
               ))}
-              {getFilteredMarkers().map((day, dayIdx) => (
+              {getFilteredMarkers().map((day: any, dayIdx: number) => (
                 <React.Fragment key={day.day}>
-                  {day.places.map((place, idx) =>
+                  {day.places.map((place: any, idx: number) =>
                     place.latlng ? (
                       <Marker
                         key={`place-${dayIdx}-${idx}`}
@@ -502,54 +367,23 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#1CB5A3',
+    marginBottom: 10,
   },
   placeRow: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 8,
   },
-  placeThumb: {
-    width: 48,
-    height: 48,
-    borderRadius: 8,
-    marginRight: 10,
-    backgroundColor: '#eee',
-  },
   placeText: {
     fontSize: 15,
     color: '#197C6B',
-    marginBottom: 2,
     fontWeight: '500',
-  },
-  placeDesc: {
-    fontSize: 13,
-    color: '#444',
-    marginBottom: 2,
-  },
-  placeRating: {
-    fontSize: 13,
-    color: '#FFB347',
-    marginBottom: 2,
   },
   lodgingTitle: {
     fontSize: 15,
     color: '#5CB8B2',
     marginTop: 6,
     fontWeight: 'bold',
-  },
-  bottomBar: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: '#F6FDFD',
-    paddingHorizontal: 24,
-    paddingVertical: 16,
-    borderTopWidth: 1,
-    borderColor: '#E0E0E0',
-  },
-  saveButton: {
-    width: '100%',
   },
   summaryCard: {
     backgroundColor: '#fff',
@@ -606,6 +440,23 @@ const styles = StyleSheet.create({
   modalMap: {
     flex: 1,
   },
+  placeThumb: {
+    width: 48,
+    height: 48,
+    borderRadius: 8,
+    marginRight: 10,
+    backgroundColor: '#eee',
+  },
+  placeDesc: {
+    fontSize: 13,
+    color: '#444',
+    marginBottom: 2,
+  },
+  placeRating: {
+    fontSize: 13,
+    color: '#FFB347',
+    marginBottom: 2,
+  },
 });
 
-export default FinalScreen; 
+export default MyPlanDetailScreen; 

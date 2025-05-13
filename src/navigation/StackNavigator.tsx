@@ -15,13 +15,16 @@ import MyPlanScreen from '../screens/MyPlanScreen';
 import CustomDrawer from '../components/CustomDrawer';
 import StartScreen from '../screens/StartScreen';
 import TripStepScreen from '../screens/TripStepScreen';
+import LoginScreen from '../screens/LoginScreen';
+import ProfileScreen from '../screens/ProfileScreen';
+import MyPlanDetailScreen from '../screens/MyPlanDetailScreen';
 
 const { width } = Dimensions.get('window');
 
 export type RootStackParamList = {
   Home: undefined;
   MainStack: {
-    screen: 'Home' | 'Start' | 'Keyword' | 'City' | 'CityDetail' | 'Landmark' | 'Route' | 'Lodging' | 'Final' | 'MyPlan' | 'TripStep';
+    screen: 'Home' | 'Start' | 'Keyword' | 'City' | 'CityDetail' | 'Landmark' | 'Route' | 'Lodging' | 'Final' | 'MyPlan' | 'TripStep' | 'Login' | 'Profile' | 'MyPlanDetail';
     params?: any;
   };
   Start: undefined;
@@ -33,7 +36,10 @@ export type RootStackParamList = {
   Lodging: undefined;
   Final: undefined;
   MyPlan: undefined;
+  MyPlanDetail: { plan: any };
   TripStep: undefined;
+  Login: undefined;
+  Profile: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -57,6 +63,9 @@ const MainStack = () => {
       <Stack.Screen name="Final" component={FinalScreen} />
       <Stack.Screen name="MyPlan" component={MyPlanScreen} />
       <Stack.Screen name="TripStep" component={TripStepScreen} />
+      <Stack.Screen name="Login" component={LoginScreen} />
+      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="MyPlanDetail" component={MyPlanDetailScreen} />
     </Stack.Navigator>
   );
 };

@@ -40,16 +40,27 @@ const LandmarkScreen = () => {
       setLoading(true);
       setError(null);
       
+      console.log('==== [LandmarkScreen] selectedCity ====', selectedCity);
+      
+      if (!selectedCity || !selectedCity.name) {
+        console.log('==== [LandmarkScreen] 도시가 선택되지 않음 ====');
+        setError('도시를 선택해주세요.');
+        setLoading(false);
+        return;
+      }
+      
+      console.log('==== [LandmarkScreen] API 요청 시작 ====', selectedCity.name);
       const response = await axios.get(
         `https://recotrip-backend-production.up.railway.app/api/places`,
         {
-          params: { query: selectedCity }
+          params: { query: selectedCity.name }
         }
       );
       
+      console.log('==== [LandmarkScreen] API 응답 ====', response.data);
       setPlaces(response.data.results);
     } catch (err) {
-      console.error('관광지 조회 API 오류:', err);
+      console.error('==== [LandmarkScreen] API 오류 상세 ====', err);
       setError('관광지 정보를 불러오는데 실패했습니다.');
     } finally {
       setLoading(false);

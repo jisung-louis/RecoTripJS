@@ -444,7 +444,7 @@ const CityDetailScreen = () => {
           title="이 도시로 결정하기!"
           type="primary"
           onPress={() => {
-            setSelectedCity(city);
+            setSelectedCity({ name: city });
             navigation.navigate('MainStack', { screen: 'Landmark' });
           }}
           style={styles.selectButton}

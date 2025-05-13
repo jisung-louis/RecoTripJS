@@ -157,7 +157,7 @@ const TripStepScreen = () => {
   // 완료(저장/전송) 핸들러
   const handleComplete = () => {
     // Zustand에 정보 저장
-    if (people) setSelectedPeople([String(people)]);
+    if (people) setSelectedPeople(people);
     if (startDate && endDate) setDates(startDate, endDate);
     if (departTime && arriveTime) setSelectedFlight({
       departure: departTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
