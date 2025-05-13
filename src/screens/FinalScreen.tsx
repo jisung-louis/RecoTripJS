@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, FlatList, Alert, Dimensions, Platform, Image, TouchableOpacity, Modal, ScrollView, Button } from 'react-native';
 import MapView, { Polyline, Marker, LatLng, PROVIDER_GOOGLE, Callout } from 'react-native-maps';
 import CustomBackButton from '../components/CustomBackButton';
@@ -107,18 +107,49 @@ const FinalScreen = () => {
   const mapRef = useRef<MapView>(null);
   const markerRefs = useRef<{ [key: string]: MarkerRef | null }>({});
 
+  // 모든 마커 좌표 수집
+  useEffect(() => {
+    if (!mapRef.current) return;
+    // 모든 관광지/숙소 좌표
+    const allCoords: LatLng[] = plan.flatMap(day => [
+      ...day.places.filter(p => p.latlng).map(p => p.latlng as LatLng),
+      ...(day.lodging?.latlng ? [day.lodging.latlng] : []),
+    ]);
+    if (allCoords.length > 0) {
+      setTimeout(() => {
+        (mapRef.current as any).fitToCoordinates(allCoords, {
+          edgePadding: { top: 80, bottom: 80, left: 80, right: 80 },
+          animated: false,
+        });
+      }, 400);
+    }
+  }, [plan.length]);
+
   // 리스트에서 관광지 클릭 시 해당 마커로 이동 및 Callout 오픈
   const focusMarker = (dayIdx: number, placeIdx: number, latlng: LatLng | null) => {
-    if (latlng && mapRef.current) {
-      (mapRef.current as unknown as MapViewRef).animateToRegion({
-        ...latlng,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01,
-      }, 350);
+    if (!mapRef.current) return;
+    // 해당 일차의 모든 마커 좌표 구하기
+    const dayPlan = plan[dayIdx];
+    const coords: LatLng[] = [
+      ...dayPlan.places.filter(p => p.latlng).map(p => p.latlng as LatLng),
+    ]; // 관광지
+    if (dayPlan.lodging?.latlng) coords.push(dayPlan.lodging.latlng); // 숙소
+    if (coords.length > 0) {
+      // fitToCoordinates로 모든 마커가 보이게 하고, 클릭한 마커가 중심에 오도록 edgePadding 조정
+      (mapRef.current as any).fitToCoordinates(coords, {
+        edgePadding: {
+          top: 80,
+          bottom: 80,
+          left: 80,
+          right: 80,
+        },
+        animated: true,
+      });
+      // 클릭한 마커 Callout 오픈 (약간의 딜레이)
       const refKey = `place-${dayIdx}-${placeIdx}`;
       setTimeout(() => {
         markerRefs.current[refKey]?.showCallout();
-      }, 400);
+      }, 600);
     }
   };
 
