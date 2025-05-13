@@ -1,0 +1,2256 @@
+[
+  {
+    "id": "tokyo",
+    "name_ko": "도쿄",
+    "name_en": "Tokyo",
+    "country": "일본",
+    "description": "도쿄는 전통과 현대가 조화를 이루는 대도시입니다. 쇼핑과 다양한 먹거리가 매력적인 일본의 수도입니다.",
+    "keywords": [
+      "쇼핑",
+      "전통",
+      "대도시"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "서울",
+      "홍콩",
+      "싱가포르"
+    ]
+  },
+  {
+    "id": "osaka",
+    "name_ko": "오사카",
+    "name_en": "Osaka",
+    "country": "일본",
+    "description": "오사카는 일본의 음식 수도로 유명합니다. 활기찬 시장과 맛있는 길거리 음식이 가득합니다.",
+    "keywords": [
+      "음식",
+      "역사",
+      "문화"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "후쿠오카",
+      "도쿄",
+      "서울"
+    ]
+  },
+  {
+    "id": "fukuoka",
+    "name_ko": "후쿠오카",
+    "name_en": "Fukuoka",
+    "country": "일본",
+    "description": "후쿠오카는 아름다운 자연과 온천으로 유명한 도시입니다. 맛있는 라멘과 전통 문화가 매력적입니다.",
+    "keywords": [
+      "맛집",
+      "온천",
+      "자연"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "오사카",
+      "타이베이",
+      "부산"
+    ]
+  },
+  {
+    "id": "seoul",
+    "name_ko": "서울",
+    "name_en": "Seoul",
+    "country": "대한민국",
+    "description": "서울은 현대와 전통이 공존하는 도시입니다. 다양한 문화와 맛있는 음식이 넘치는 곳입니다.",
+    "keywords": [
+      "현대",
+      "문화",
+      "야경"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "도쿄",
+      "오사카",
+      "홍콩"
+    ]
+  },
+  {
+    "id": "busan",
+    "name_ko": "부산",
+    "name_en": "Busan",
+    "country": "대한민국",
+    "description": "부산은 아름다운 해변과 활기찬 시장으로 유명합니다. 해산물과 국제적인 축제가 매력적입니다.",
+    "keywords": [
+      "해변",
+      "시장",
+      "음식"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "후쿠오카",
+      "다낭",
+      "세부"
+    ]
+  },
+  {
+    "id": "taipei",
+    "name_ko": "타이베이",
+    "name_en": "Taipei",
+    "country": "대만",
+    "description": "타이베이는 맛있는 음식과 전통이 가득한 도시입니다. 야시장에서 다양한 먹거리를 즐길 수 있습니다.",
+    "keywords": [
+      "야시장",
+      "온천",
+      "전통"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "홍콩",
+      "오사카",
+      "서울"
+    ]
+  },
+  {
+    "id": "hong_kong",
+    "name_ko": "홍콩",
+    "name_en": "Hong Kong",
+    "country": "홍콩",
+    "description": "홍콩은 화려한 야경과 다양한 문화가 어우러진 도시입니다. 쇼핑과 미식의 천국으로 알려져 있습니다.",
+    "keywords": [
+      "야경",
+      "도시",
+      "야시장"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "도쿄",
+      "싱가포르",
+      "타이베이"
+    ]
+  },
+  {
+    "id": "bangkok",
+    "name_ko": "방콕",
+    "name_en": "Bangkok",
+    "country": "태국",
+    "description": "방콕은 활기찬 시장과 맛있는 길거리 음식으로 유명합니다. 사원과 문화유산이 매력적인 도시입니다.",
+    "keywords": [
+      "야시장",
+      "음식",
+      "열대"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "다낭",
+      "호치민",
+      "쿠알라룸푸르"
+    ]
+  },
+  {
+    "id": "chiang_mai",
+    "name_ko": "치앙마이",
+    "name_en": "Chiang Mai",
+    "country": "태국",
+    "description": "치앙마이는 아름다운 자연과 사원으로 유명한 도시입니다. 전통 문화와 힐링을 경험할 수 있습니다.",
+    "keywords": [
+      "자연",
+      "사원",
+      "힐링"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "하노이",
+      "후에",
+      "방콕"
+    ]
+  },
+  {
+    "id": "da_nang",
+    "name_ko": "다낭",
+    "name_en": "Da Nang",
+    "country": "베트남",
+    "description": "다낭은 아름다운 해변과 현대적인 도시 환경이 조화를 이루는 곳입니다. 힐링과 여유를 즐길 수 있습니다.",
+    "keywords": [
+      "해변",
+      "힐링",
+      "물가 저렴"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "나트랑",
+      "방콕",
+      "보라카이"
+    ]
+  },
+  {
+    "id": "ho_chi_minh",
+    "name_ko": "호치민",
+    "name_en": "Ho Chi Minh",
+    "country": "베트남",
+    "description": "호치민은 베트남의 경제 중심지로, 역사와 현대가 어우러진 도시입니다. 다양한 시장과 음식이 매력적입니다.",
+    "keywords": [
+      "시장",
+      "역사",
+      "현대"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "하노이",
+      "다낭",
+      "방콕"
+    ]
+  },
+  {
+    "id": "hanoi",
+    "name_ko": "하노이",
+    "name_en": "Hanoi",
+    "country": "베트남",
+    "description": "하노이는 전통과 역사적인 매력이 가득한 도시입니다. 문화유산과 맛있는 음식이 많은 곳입니다.",
+    "keywords": [
+      "문화",
+      "전통",
+      "자연"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "호치민",
+      "치앙마이",
+      "쿠알라룸푸르"
+    ]
+  },
+  {
+    "id": "kuala_lumpur",
+    "name_ko": "쿠알라룸푸르",
+    "name_en": "Kuala Lumpur",
+    "country": "말레이시아",
+    "description": "쿠알라룸푸르는 현대적인 건축물과 다문화가 어우러진 도시입니다. 쇼핑과 야경이 매력적입니다.",
+    "keywords": [
+      "야경",
+      "쇼핑",
+      "이슬람"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "방콕",
+      "하노이",
+      "싱가포르"
+    ]
+  },
+  {
+    "id": "singapore",
+    "name_ko": "싱가포르",
+    "name_en": "Singapore",
+    "country": "싱가포르",
+    "description": "싱가포르는 청결하고 현대적인 도시로, 다양한 문화가 공존합니다. 맛있는 음식과 관광지가 많습니다.",
+    "keywords": [
+      "청결",
+      "도시",
+      "음식"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "홍콩",
+      "도쿄",
+      "쿠알라룸푸르"
+    ]
+  },
+  {
+    "id": "jakarta",
+    "name_ko": "자카르타",
+    "name_en": "Jakarta",
+    "country": "인도네시아",
+    "description": "자카르타는 인도네시아의 수도로, 대도시의 활기를 느낄 수 있는 곳입니다. 다양한 문화가 혼합된 도시입니다.",
+    "keywords": [
+      "대도시",
+      "혼잡",
+      "시장"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "방콕",
+      "마닐라",
+      "호치민"
+    ]
+  },
+  {
+    "id": "bali",
+    "name_ko": "발리",
+    "name_en": "Bali",
+    "country": "인도네시아",
+    "description": "발리는 아름다운 해변과 자연경관으로 유명한 휴양지입니다. 서핑과 힐링을 즐길 수 있는 곳입니다.",
+    "keywords": [
+      "휴양",
+      "자연",
+      "서핑"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "보라카이",
+      "다낭",
+      "푸꾸옥"
+    ]
+  },
+  {
+    "id": "manila",
+    "name_ko": "마닐라",
+    "name_en": "Manila",
+    "country": "필리핀",
+    "description": "마닐라는 필리핀의 수도로, 다양한 문화와 역사를 느낄 수 있는 도시입니다. 활기찬 시장이 매력적입니다.",
+    "keywords": [
+      "음악",
+      "시장",
+      "기독교"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "호치민",
+      "방콕",
+      "세부"
+    ]
+  },
+  {
+    "id": "boracay",
+    "name_ko": "보라카이",
+    "name_en": "Boracay",
+    "country": "필리핀",
+    "description": "보라카이는 세계적으로 유명한 아름다운 해변을 가진 섬입니다. 휴양과 레저를 즐기기에 최적의 장소입니다.",
+    "keywords": [
+      "휴양",
+      "해변",
+      "스노클링"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "세부",
+      "보홀",
+      "다낭"
+    ]
+  },
+  {
+    "id": "sydney",
+    "name_ko": "시드니",
+    "name_en": "Sydney",
+    "country": "호주",
+    "description": "시드니는 아름다운 항구와 오페라 하우스로 유명한 도시입니다. 도시와 자연이 조화를 이루는 곳입니다.",
+    "keywords": [
+      "도시",
+      "자연",
+      "오페라하우스"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "멜버른",
+      "오클랜드",
+      "브리즈번"
+    ]
+  },
+  {
+    "id": "melbourne",
+    "name_ko": "멜버른",
+    "name_en": "Melbourne",
+    "country": "호주",
+    "description": "멜버른은 예술과 문화의 중심지로, 다양한 이벤트와 축제가 열리는 도시입니다. 힙스터 문화가 매력적입니다.",
+    "keywords": [
+      "예술",
+      "문화",
+      "힙스터"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "시드니",
+      "브리즈번",
+      "애들레이드"
+    ]
+  },
+  {
+    "id": "london",
+    "name_ko": "런던",
+    "name_en": "London",
+    "country": "영국",
+    "description": "런던은 역사와 현대가 어우러진 국제적인 도시입니다. 다양한 문화와 예술이 넘치는 곳입니다.",
+    "keywords": [
+      "역사",
+      "예술",
+      "쇼핑"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "파리",
+      "뉴욕",
+      "베를린"
+    ]
+  },
+  {
+    "id": "paris",
+    "name_ko": "파리",
+    "name_en": "Paris",
+    "country": "프랑스",
+    "description": "파리는 예술과 로맨스의 도시로, 아름다운 건축물과 야경이 매력적입니다. 세계적인 문화유산이 가득합니다.",
+    "keywords": [
+      "예술",
+      "로맨틱",
+      "야경"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "런던",
+      "로마",
+      "바르셀로나"
+    ]
+  },
+  {
+    "id": "rome",
+    "name_ko": "로마",
+    "name_en": "Rome",
+    "country": "이탈리아",
+    "description": "로마는 고대 역사와 문화를 간직한 도시입니다. 유적지와 맛있는 이탈리아 음식이 매력적입니다.",
+    "keywords": [
+      "역사",
+      "고대",
+      "음식"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "파리",
+      "바르셀로나",
+      "아테네"
+    ]
+  },
+  {
+    "id": "barcelona",
+    "name_ko": "바르셀로나",
+    "name_en": "Barcelona",
+    "country": "스페인",
+    "description": "바르셀로나는 독특한 건축물과 지중해의 아름다움이 어우러진 도시입니다. 축구와 문화가 매력적입니다.",
+    "keywords": [
+      "건축",
+      "지중해",
+      "축구"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "마드리드",
+      "로마",
+      "리스본"
+    ]
+  },
+  {
+    "id": "amsterdam",
+    "name_ko": "암스테르담",
+    "name_en": "Amsterdam",
+    "country": "네덜란드",
+    "description": "암스테르담은 아름다운 운하와 자전거 문화로 유명한 도시입니다. 예술과 역사적인 명소가 가득합니다.",
+    "keywords": [
+      "운하",
+      "자전거",
+      "예술"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "파리",
+      "브뤼셀",
+      "프라하"
+    ]
+  },
+  {
+    "id": "berlin",
+    "name_ko": "베를린",
+    "name_en": "Berlin",
+    "country": "독일",
+    "description": "베를린은 역사와 현대가 공존하는 도시입니다. 다양한 문화와 예술이 넘치는 곳입니다.",
+    "keywords": [
+      "역사",
+      "현대",
+      "자유"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "프라하",
+      "비엔나",
+      "암스테르담"
+    ]
+  },
+  {
+    "id": "prague",
+    "name_ko": "프라하",
+    "name_en": "Prague",
+    "country": "체코",
+    "description": "프라하는 중세의 아름다움을 간직한 도시입니다. 야경과 저렴한 물가가 매력적입니다.",
+    "keywords": [
+      "중세",
+      "야경",
+      "저렴"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "비엔나",
+      "부다페스트",
+      "베를린"
+    ]
+  },
+  {
+    "id": "budapest",
+    "name_ko": "부다페스트",
+    "name_en": "Budapest",
+    "country": "헝가리",
+    "description": "부다페스트는 온천과 역사적인 건축물로 유명한 도시입니다. 야경이 특히 아름답습니다.",
+    "keywords": [
+      "온천",
+      "야경",
+      "문화"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "프라하",
+      "비엔나",
+      "리스본"
+    ]
+  },
+  {
+    "id": "vienna",
+    "name_ko": "빈",
+    "name_en": "Vienna",
+    "country": "오스트리아",
+    "description": "빈은 클래식 음악과 고풍스러운 건축물이 매력적인 도시입니다. 정돈된 도시 환경이 인상적입니다.",
+    "keywords": [
+      "클래식",
+      "고풍",
+      "정돈"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "프라하",
+      "부다페스트",
+      "베를린"
+    ]
+  },
+  {
+    "id": "istanbul",
+    "name_ko": "이스탄불",
+    "name_en": "Istanbul",
+    "country": "터키",
+    "description": "이스탄불은 동서양이 만나는 역사적인 도시입니다. 이슬람 문화와 현대적인 요소가 조화를 이루고 있습니다.",
+    "keywords": [
+      "이슬람",
+      "문화",
+      "시장"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "카이로",
+      "두바이",
+      "테헤란"
+    ]
+  },
+  {
+    "id": "dubai",
+    "name_ko": "두바이",
+    "name_en": "Dubai",
+    "country": "UAE",
+    "description": "두바이는 초현대적인 건축물과 사막의 매력이 어우러진 도시입니다. 쇼핑과 레저가 풍부합니다.",
+    "keywords": [
+      "초현대",
+      "쇼핑",
+      "사막"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "도하",
+      "아부다비",
+      "이스탄불"
+    ]
+  },
+  {
+    "id": "cairo",
+    "name_ko": "카이로",
+    "name_en": "Cairo",
+    "country": "이집트",
+    "description": "카이로는 피라미드와 역사적인 유적지로 유명한 도시입니다. 이집트의 문화와 역사를 느낄 수 있습니다.",
+    "keywords": [
+      "피라미드",
+      "역사",
+      "사막"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "이스탄불",
+      "마라케시",
+      "테헤란"
+    ]
+  },
+  {
+    "id": "marrakech",
+    "name_ko": "모로코",
+    "name_en": "Marrakech",
+    "country": "모로코",
+    "description": "모로코는 시장과 독특한 색감이 매력적인 도시입니다. 이국적인 문화가 풍부한 곳입니다.",
+    "keywords": [
+      "시장",
+      "색감",
+      "이국적"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "카이로",
+      "테헤란",
+      "튀니스"
+    ]
+  },
+  {
+    "id": "new_york",
+    "name_ko": "뉴욕",
+    "name_en": "New York",
+    "country": "미국",
+    "description": "뉴욕은 대도시의 상징으로, 다양한 문화와 예술이 넘치는 곳입니다. 자유의 상징으로 알려져 있습니다.",
+    "keywords": [
+      "대도시",
+      "자유",
+      "문화"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "런던",
+      "로스앤젤레스",
+      "파리"
+    ]
+  },
+  {
+    "id": "san_francisco",
+    "name_ko": "샌프란시스코",
+    "name_en": "San Francisco",
+    "country": "미국",
+    "description": "샌프란시스코는 IT 산업의 중심지로, 아름다운 자연과 다양한 문화가 어우러진 도시입니다.",
+    "keywords": [
+      "IT",
+      "자연",
+      "다양성"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "로스앤젤레스",
+      "시애틀",
+      "밴쿠버"
+    ]
+  },
+  {
+    "id": "los_angeles",
+    "name_ko": "LA",
+    "name_en": "Los Angeles",
+    "country": "미국",
+    "description": "LA는 할리우드와 해변으로 유명한 도시입니다. 다양한 문화와 엔터테인먼트가 가득합니다.",
+    "keywords": [
+      "할리우드",
+      "해변",
+      "도시"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "샌프란시스코",
+      "시애틀",
+      "라스베이거스"
+    ]
+  },
+  {
+    "id": "vancouver",
+    "name_ko": "밴쿠버",
+    "name_en": "Vancouver",
+    "country": "캐나다",
+    "description": "밴쿠버는 자연과 도시가 조화를 이루는 아름다운 도시입니다. 청정한 환경과 다양한 문화가 매력적입니다.",
+    "keywords": [
+      "자연",
+      "도시",
+      "청정"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "토론토",
+      "몬트리올",
+      "시애틀"
+    ]
+  },
+  {
+    "id": "toronto",
+    "name_ko": "토론토",
+    "name_en": "Toronto",
+    "country": "캐나다",
+    "description": "토론토는 다문화 도시로, 다양한 음식과 예술을 경험할 수 있는 곳입니다. 대도시의 매력이 가득합니다.",
+    "keywords": [
+      "다문화",
+      "대도시",
+      "예술"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "뉴욕",
+      "몬트리올",
+      "밴쿠버"
+    ]
+  },
+  {
+    "id": "mexico_city",
+    "name_ko": "멕시코시티",
+    "name_en": "Mexico City",
+    "country": "멕시코",
+    "description": "멕시코시티는 풍부한 역사와 문화가 있는 도시입니다. 맛있는 음식과 다채로운 시장이 매력적입니다.",
+    "keywords": [
+      "음식",
+      "문화",
+      "시장"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "보고타",
+      "리마",
+      "상파울루"
+    ]
+  },
+  {
+    "id": "lima",
+    "name_ko": "리마",
+    "name_en": "Lima",
+    "country": "페루",
+    "description": "리마는 페루의 수도로, 역사적인 유적과 해변이 매력적인 도시입니다. 남미의 다양한 문화를 경험할 수 있습니다.",
+    "keywords": [
+      "역사",
+      "해변",
+      "남미"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "리우",
+      "멕시코시티",
+      "부에노스아이레스"
+    ]
+  },
+  {
+    "id": "buenos_aires",
+    "name_ko": "부에노스아이레스",
+    "name_en": "Buenos Aires",
+    "country": "아르헨티나",
+    "description": "부에노스아이레스는 탱고와 유럽풍 문화가 어우러진 도시입니다. 다양한 예술과 음식이 매력적입니다.",
+    "keywords": [
+      "탱고",
+      "문화",
+      "유럽풍"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "리마",
+      "상파울루",
+      "산티아고"
+    ]
+  },
+  {
+    "id": "são_paulo",
+    "name_ko": "상파울루",
+    "name_en": "São Paulo",
+    "country": "브라질",
+    "description": "상파울루는 대도시로, 다양한 문화와 음식을 경험할 수 있는 곳입니다. 혼합된 문화가 매력적입니다.",
+    "keywords": [
+      "대도시",
+      "음식",
+      "혼합"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "리우",
+      "부에노스아이레스",
+      "리마"
+    ]
+  },
+  {
+    "id": "rio_de_janeiro",
+    "name_ko": "리우",
+    "name_en": "Rio de Janeiro",
+    "country": "브라질",
+    "description": "리우는 아름다운 해변과 축제로 유명한 도시입니다. 자연과 문화가 어우러진 곳입니다.",
+    "keywords": [
+      "해변",
+      "축제",
+      "자연"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "상파울루",
+      "리마",
+      "부에노스아이레스"
+    ]
+  },
+  {
+    "id": "johannesburg",
+    "name_ko": "요하네스버그",
+    "name_en": "Johannesburg",
+    "country": "남아프리카공화국",
+    "description": "요하네스버그는 아프리카의 다문화 도시로, 다양한 역사와 문화를 경험할 수 있습니다. 도시의 활기가 넘칩니다.",
+    "keywords": [
+      "아프리카",
+      "도시",
+      "다문화"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "케이프타운",
+      "나이로비",
+      "카사블랑카"
+    ]
+  },
+  {
+    "id": "cape_town",
+    "name_ko": "케이프타운",
+    "name_en": "Cape Town",
+    "country": "남아프리카공화국",
+    "description": "케이프타운은 아름다운 자연과 해변으로 유명한 도시입니다. 야생과 자연을 즐길 수 있는 곳입니다.",
+    "keywords": [
+      "자연",
+      "해변",
+      "야생"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "요하네스버그",
+      "나이로비",
+      "마다가스카르"
+    ]
+  },
+  {
+    "id": "kathmandu",
+    "name_ko": "카트만두",
+    "name_en": "Kathmandu",
+    "country": "네팔",
+    "description": "카트만두는 네팔의 수도로, 산과 불교 문화가 어우러진 도시입니다. 트래킹과 문화 체험이 매력적입니다.",
+    "keywords": [
+      "산",
+      "트래킹",
+      "불교"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "라싸",
+      "부탄",
+      "달라이"
+    ]
+  },
+  {
+    "id": "lhasa",
+    "name_ko": "라싸",
+    "name_en": "Lhasa",
+    "country": "티베트",
+    "description": "라싸는 티베트의 수도로, 불교 문화와 고산의 아름다움이 매력적인 도시입니다. 신비로운 분위기가 가득합니다.",
+    "keywords": [
+      "고산",
+      "문화",
+      "신비"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "카트만두",
+      "부탄",
+      "칭하이"
+    ]
+  },
+  {
+    "id": "tashkent",
+    "name_ko": "타슈켄트",
+    "name_en": "Tashkent",
+    "country": "우즈베키스탄",
+    "description": "타슈켄트는 실크로드의 중심지로, 이슬람 문화가 어우러진 도시입니다. 중앙아시아의 매력을 느낄 수 있습니다.",
+    "keywords": [
+      "실크로드",
+      "이슬람",
+      "중앙아시아"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "알마티",
+      "비슈케크",
+      "두샨베"
+    ]
+  },
+  {
+    "id": "ulaanbaatar",
+    "name_ko": "울란바토르",
+    "name_en": "Ulaanbaatar",
+    "country": "몽골",
+    "description": "울란바토르는 몽골의 수도로, 초원과 유목 문화가 매력적인 도시입니다. 자연과 전통이 어우러진 곳입니다.",
+    "keywords": [
+      "초원",
+      "유목",
+      "자연"
+    ],
+    "transportation": {
+      "subway": true,
+      "bus": true,
+      "passes": [
+        "도시 교통패스"
+      ]
+    },
+    "cost": {
+      "daily": "15만원~25만원",
+      "level": "보통"
+    },
+    "electricity": {
+      "voltage": "220V",
+      "plugType": "C형"
+    },
+    "language": {
+      "main": "영어",
+      "greeting": "Hello"
+    },
+    "payment": {
+      "cardUsage": "대부분 사용 가능",
+      "cashRatio": "20% 현금 필요"
+    },
+    "documents": [
+      "여권",
+      "항공권",
+      "숙소 예약 확인서"
+    ],
+    "timezone": "UTC+9",
+    "similarCities": [
+      "카트만두",
+      "라싸",
+      "칭하이"
+    ]
+  }
+]

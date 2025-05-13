@@ -82,7 +82,7 @@ const CityScreen = () => {
               style={styles.card}
               onPress={() => navigation.navigate('MainStack', { 
                 screen: 'CityDetail', 
-                params: { city: item.name_ko } 
+                params: { city: item.id } 
               })}
               activeOpacity={0.8}
             >
