@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
+  Alert,
 } from 'react-native';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
 import { useNavigation } from '@react-navigation/native';
@@ -83,7 +84,7 @@ const CustomDrawer = (props: any) => {
         <View style={styles.menuSection}>
           <TouchableOpacity
             style={styles.menuItem}
-            onPress={() => navigation.navigate('MyPlan')}
+            onPress={() => navigation.navigate('MainStack', { screen: 'MyPlan' })}
           >
             <Text style={styles.menuText}>내 플랜</Text>
           </TouchableOpacity>
@@ -91,7 +92,12 @@ const CustomDrawer = (props: any) => {
           <TouchableOpacity
             style={styles.menuItem}
             onPress={() => {
-              // TODO: 게시판 화면으로 이동
+              if (isLoggedIn) {
+                navigation.navigate('MainStack', { screen: 'Board' });
+              } else {
+                Alert.alert('로그인이 필요합니다');
+                navigation.navigate('MainStack', { screen: 'Login' });
+              }
             }}
           >
             <Text style={styles.menuText}>게시판</Text>
@@ -99,9 +105,7 @@ const CustomDrawer = (props: any) => {
 
           <TouchableOpacity
             style={styles.menuItem}
-            onPress={() => {
-              // TODO: 환경설정 화면으로 이동
-            }}
+            onPress={() => navigation.navigate('MainStack', { screen: 'Settings' })}
           >
             <Text style={styles.menuText}>환경 설정</Text>
           </TouchableOpacity>

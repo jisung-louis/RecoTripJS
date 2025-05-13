@@ -18,13 +18,20 @@ import TripStepScreen from '../screens/TripStepScreen';
 import LoginScreen from '../screens/LoginScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import MyPlanDetailScreen from '../screens/MyPlanDetailScreen';
+import SettingsScreen from '../screens/SettingsScreen';
+import BoardScreen from '../screens/BoardScreen';
+import PostDetailScreen from '../screens/PostDetailScreen';
+import TermsOfServiceScreen from '../screens/TermsOfServiceScreen';
+import PrivacyPolicyScreen from '../screens/PrivacyPolicyScreen';
+import PostEditScreen from '../screens/PostEditScreen';
+import PostWriteScreen from '../screens/PostWriteScreen';
 
 const { width } = Dimensions.get('window');
 
 export type RootStackParamList = {
   Home: undefined;
   MainStack: {
-    screen: 'Home' | 'Start' | 'Keyword' | 'City' | 'CityDetail' | 'Landmark' | 'Route' | 'Lodging' | 'Final' | 'MyPlan' | 'TripStep' | 'Login' | 'Profile' | 'MyPlanDetail';
+    screen: 'Home' | 'Start' | 'Keyword' | 'City' | 'CityDetail' | 'Landmark' | 'Route' | 'Lodging' | 'Final' | 'MyPlan' | 'TripStep' | 'Login' | 'Profile' | 'MyPlanDetail' | 'Settings' | 'Board' | 'PostDetail' | 'TermsOfService' | 'PrivacyPolicy' | 'PostEdit' | 'PostWrite';
     params?: any;
   };
   Start: undefined;
@@ -40,6 +47,13 @@ export type RootStackParamList = {
   TripStep: undefined;
   Login: undefined;
   Profile: undefined;
+  Settings: undefined;
+  Board: undefined;
+  PostDetail: { postId: string };
+  TermsOfService: undefined;
+  PrivacyPolicy: undefined;
+  PostEdit: { postId: string };
+  PostWrite: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -66,6 +80,13 @@ const MainStack = () => {
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="Profile" component={ProfileScreen} />
       <Stack.Screen name="MyPlanDetail" component={MyPlanDetailScreen} />
+      <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen name="Board" component={BoardScreen} />
+      <Stack.Screen name="PostDetail" component={PostDetailScreen} />
+      <Stack.Screen name="TermsOfService" component={TermsOfServiceScreen} />
+      <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicyScreen} />
+      <Stack.Screen name="PostEdit" component={PostEditScreen} />
+      <Stack.Screen name="PostWrite" component={PostWriteScreen} />
     </Stack.Navigator>
   );
 };
