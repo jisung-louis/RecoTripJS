@@ -62,6 +62,9 @@ const LodgingScreen = () => {
           image: item.photo || 'https://via.placeholder.com/400x200?text=No+Image',
           desc: item.address || '',
           rating: item.rating || 0,
+          address: item.address || '',
+          location: item.location || { lat: item.lat, lng: item.lng },
+          place_id: item.place_id,
         }));
       } catch (e) {
         console.error(`[진단] day ${route.day} Hotel API error:`, e);
