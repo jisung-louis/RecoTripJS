@@ -8,22 +8,20 @@ import KeywordScreen from '../screens/KeywordScreen';
 import CityScreen from '../screens/CityScreen';
 import CityDetailScreen from '../screens/CityDetailScreen';
 import LandmarkScreen from '../screens/LandmarkScreen';
-import PeopleScreen from '../screens/PeopleScreen';
-import DateScreen from '../screens/DateScreen';
-import FlightScreen from '../screens/FlightScreen';
 import RouteScreen from '../screens/RouteScreen';
 import LodgingScreen from '../screens/LodgingScreen';
 import FinalScreen from '../screens/FinalScreen';
 import MyPlanScreen from '../screens/MyPlanScreen';
 import CustomDrawer from '../components/CustomDrawer';
 import StartScreen from '../screens/StartScreen';
+import TripStepScreen from '../screens/TripStepScreen';
 
 const { width } = Dimensions.get('window');
 
 export type RootStackParamList = {
   Home: undefined;
   MainStack: {
-    screen: 'Start' | 'Keyword' | 'City' | 'CityDetail' | 'Landmark' | 'People' | 'Date' | 'Flight' | 'Route' | 'Lodging' | 'Final' | 'MyPlan';
+    screen: 'Home' | 'Start' | 'Keyword' | 'City' | 'CityDetail' | 'Landmark' | 'Route' | 'Lodging' | 'Final' | 'MyPlan' | 'TripStep';
     params?: any;
   };
   Start: undefined;
@@ -31,13 +29,11 @@ export type RootStackParamList = {
   City: undefined;
   CityDetail: { city: string };
   Landmark: undefined;
-  People: undefined;
-  Date: undefined;
-  Flight: undefined;
   Route: undefined;
   Lodging: undefined;
   Final: undefined;
   MyPlan: undefined;
+  TripStep: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -56,13 +52,11 @@ const MainStack = () => {
       <Stack.Screen name="City" component={CityScreen} />
       <Stack.Screen name="CityDetail" component={CityDetailScreen} />
       <Stack.Screen name="Landmark" component={LandmarkScreen} />
-      <Stack.Screen name="People" component={PeopleScreen} />
-      <Stack.Screen name="Date" component={DateScreen} />
-      <Stack.Screen name="Flight" component={FlightScreen} />
       <Stack.Screen name="Route" component={RouteScreen} />
       <Stack.Screen name="Lodging" component={LodgingScreen} />
       <Stack.Screen name="Final" component={FinalScreen} />
       <Stack.Screen name="MyPlan" component={MyPlanScreen} />
+      <Stack.Screen name="TripStep" component={TripStepScreen} />
     </Stack.Navigator>
   );
 };

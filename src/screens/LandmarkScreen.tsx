@@ -1,137 +1,130 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, FlatList, Image, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, SafeAreaView, FlatList, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import CustomBackButton from '../components/CustomBackButton';
 import CustomButton from '../components/CustomButton';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RootStackParamList } from '../navigation/StackNavigator';
+import { useTripStore } from '../store/useTripStore';
+import axios from 'axios';
 
-const DUMMY_LANDMARKS = [
-  {
-    id: '1',
-    name: '도쿄 타워',
-    desc: '도쿄의 상징적인 랜드마크, 멋진 전망과 야경을 자랑합니다.',
-    image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80',
-    tag: '전망대',
-    rating: 4.8,
-  },
-  {
-    id: '2',
-    name: '하라주쿠',
-    desc: '트렌디한 패션과 다양한 먹거리를 즐길 수 있는 거리.',
-    image: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80',
-    tag: '쇼핑',
-    rating: 4.6,
-  },
-  {
-    id: '3',
-    name: '아사쿠사',
-    desc: '센소지 절과 전통적인 분위기의 거리.',
-    image: 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=400&q=80',
-    tag: '전통',
-    rating: 4.7,
-  },
-  {
-    id: '4',
-    name: '시부야 스크램블',
-    desc: '세계에서 가장 붐비는 교차로, 활기찬 분위기.',
-    image: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80',
-    tag: '핫플',
-    rating: 4.5,
-  },
-  {
-    id: '5',
-    name: '우에노 공원',
-    desc: '벚꽃 명소로 유명한 도심 속 공원.',
-    image: 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=400&q=80',
-    tag: '자연',
-    rating: 4.6,
-  },
-  {
-    id: '6',
-    name: '도쿄 국립박물관',
-    desc: '일본 최대의 박물관, 다양한 전시와 유물.',
-    image: 'https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&w=400&q=80',
-    tag: '문화',
-    rating: 4.4,
-  },
-  {
-    id: '7',
-    name: '오다이바',
-    desc: '바다와 쇼핑, 엔터테인먼트가 어우러진 복합 공간.',
-    image: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80',
-    tag: '복합',
-    rating: 4.5,
-  },
-  {
-    id: '8',
-    name: '롯폰기 힐즈',
-    desc: '고급 레스토랑과 전망대, 예술 공간이 있는 복합 빌딩.',
-    image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80',
-    tag: '전망대',
-    rating: 4.3,
-  },
-  {
-    id: '9',
-    name: '메이지 신궁',
-    desc: '도심 속 평온한 신사, 산책로가 아름다움.',
-    image: 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=400&q=80',
-    tag: '전통',
-    rating: 4.7,
-  },
-  {
-    id: '10',
-    name: '긴자',
-    desc: '고급 쇼핑과 미식의 거리.',
-    image: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80',
-    tag: '쇼핑',
-    rating: 4.6,
-  },
-];
+interface Place {
+  name: string;
+  address: string;
+  rating: number;
+  location: {
+    lat: number;
+    lng: number;
+  };
+  place_id: string;
+  photo: string | null;
+}
 
 const MAX_SELECT = 6;
 
 const LandmarkScreen = () => {
   const [selected, setSelected] = useState<string[]>([]);
+  const [places, setPlaces] = useState<Place[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const navigation = useNavigation<DrawerNavigationProp<RootStackParamList, 'MainStack'>>();
+  const { addLandmark, removeLandmark, selectedCity } = useTripStore();
 
-  const toggleSelect = (id: string) => {
+  useEffect(() => {
+    fetchPlaces();
+  }, []);
+
+  const fetchPlaces = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      const response = await axios.get(
+        `https://recotrip-backend-production.up.railway.app/api/places`,
+        {
+          params: { query: selectedCity }
+        }
+      );
+      
+      setPlaces(response.data.results);
+    } catch (err) {
+      console.error('관광지 조회 API 오류:', err);
+      setError('관광지 정보를 불러오는데 실패했습니다.');
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const toggleSelect = (placeId: string) => {
     setSelected((prev) =>
-      prev.includes(id)
-        ? prev.filter((item) => item !== id)
+      prev.includes(placeId)
+        ? prev.filter((item) => item !== placeId)
         : prev.length < MAX_SELECT
-        ? [...prev, id]
+        ? [...prev, placeId]
         : prev
     );
   };
 
-  const renderItem = ({ item }: { item: typeof DUMMY_LANDMARKS[0] }) => {
-    const isSelected = selected.includes(item.id);
+  const saveLandmarksToStore = () => {
+    selected.forEach((placeId) => {
+      const place = places.find(p => p.place_id === placeId);
+      if (place) {
+        addLandmark(place.name);
+      }
+    });
+  };
+
+  const renderItem = ({ item }: { item: Place }) => {
+    const isSelected = selected.includes(item.place_id);
     return (
       <TouchableOpacity
         style={[styles.card, isSelected && styles.cardSelected]}
         activeOpacity={0.85}
-        onPress={() => toggleSelect(item.id)}
+        onPress={() => toggleSelect(item.place_id)}
       >
-        <Image source={{ uri: item.image }} style={styles.image} />
+        <Image 
+          source={{ uri: item.photo || 'https://via.placeholder.com/400x200?text=No+Image' }} 
+          style={styles.image} 
+        />
         <View style={styles.cardContent}>
           <View style={styles.cardHeader}>
-            <Text style={styles.tag}>{item.tag}</Text>
+            <Text style={styles.tag}>관광지</Text>
             {isSelected && (
               <Icon name="checkmark-circle" size={22} color="#1CB5A3" style={{ marginLeft: 6 }} />
             )}
           </View>
           <Text style={styles.name}>{item.name}</Text>
-          <Text style={styles.desc}>{item.desc}</Text>
+          <Text style={styles.desc}>{item.address}</Text>
           <View style={styles.ratingRow}>
             <Icon name="star" size={16} color="#FFD700" />
-            <Text style={styles.rating}>{item.rating.toFixed(1)}</Text>
+            <Text style={styles.rating}>{item.rating?.toFixed(1) || '평점 없음'}</Text>
           </View>
         </View>
       </TouchableOpacity>
     );
   };
+
+  if (loading) {
+    return (
+      <SafeAreaView style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#197C6B" />
+        <Text style={styles.loadingText}>관광지를 불러오는 중...</Text>
+      </SafeAreaView>
+    );
+  }
+
+  if (error) {
+    return (
+      <SafeAreaView style={styles.errorContainer}>
+        <Icon name="alert-circle-outline" size={48} color="#FF6B6B" />
+        <Text style={styles.errorText}>{error}</Text>
+        <TouchableOpacity style={styles.retryButton} onPress={fetchPlaces}>
+          <Text style={styles.retryButtonText}>다시 시도</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#F6FDFD' }}>
@@ -140,8 +133,8 @@ const LandmarkScreen = () => {
         <Text style={styles.title}>어디 가보실래요?</Text>
       </View>
       <FlatList
-        data={DUMMY_LANDMARKS}
-        keyExtractor={(item) => item.id}
+        data={places}
+        keyExtractor={(item) => item.place_id}
         renderItem={renderItem}
         contentContainerStyle={styles.listContainer}
         showsVerticalScrollIndicator={false}
@@ -154,7 +147,10 @@ const LandmarkScreen = () => {
           title="다음"
           type="primary"
           disabled={selected.length === 0}
-          onPress={() => navigation.navigate('MainStack', { screen: 'People' })}
+          onPress={() => {
+            saveLandmarksToStore();
+            navigation.navigate('MainStack', { screen: 'TripStep' });
+          }}
           style={styles.nextButton}
         />
       </View>
@@ -264,6 +260,43 @@ const styles = StyleSheet.create({
   nextButton: {
     minWidth: 120,
     marginLeft: 12,
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F6FDFD',
+  },
+  loadingText: {
+    marginTop: 12,
+    fontSize: 16,
+    color: '#197C6B',
+    fontWeight: '500',
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F6FDFD',
+    padding: 24,
+  },
+  errorText: {
+    marginTop: 12,
+    fontSize: 16,
+    color: '#FF6B6B',
+    textAlign: 'center',
+    marginBottom: 24,
+  },
+  retryButton: {
+    backgroundColor: '#197C6B',
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: 8,
+  },
+  retryButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
   },
 });
 

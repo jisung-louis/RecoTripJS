@@ -1,27 +1,80 @@
-import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, FlatList, Alert } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, SafeAreaView, FlatList, Alert, ActivityIndicator, TouchableOpacity } from 'react-native';
 import CustomBackButton from '../components/CustomBackButton';
 import CustomButton from '../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RootStackParamList } from '../navigation/StackNavigator';
+import { useTripStore } from '../store/useTripStore';
+import axios from 'axios';
 
-const DUMMY_ROUTES = [
-  { day: 1, places: ['도쿄 타워', '하라주쿠'] },
-  { day: 2, places: ['아사쿠사', '시부야 스크램블', '우에노 공원'] },
-  { day: 3, places: ['도쿄 국립박물관', '오다이바'] },
-];
+interface RouteDay {
+  day: number;
+  places: string[];
+}
 
 const RouteScreen = () => {
+  const [routes, setRoutes] = useState<RouteDay[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const navigation = useNavigation<DrawerNavigationProp<RootStackParamList, 'MainStack'>>();
+  const { selectedCity, selectedLandmarks, startDate, endDate } = useTripStore();
+
+  useEffect(() => {
+    fetchRecommendedRoute();
+  }, []);
+
+  const fetchRecommendedRoute = async () => {
+    try {
+      setLoading(true);
+      setError(null);
+      
+      const response = await axios.post(
+        'https://recotrip-backend-production.up.railway.app/api/recommend/route',
+        {
+          city: selectedCity,
+          landmarks: selectedLandmarks,
+          startDate: startDate?.toISOString(),
+          endDate: endDate?.toISOString()
+        }
+      );
+      
+      setRoutes(response.data.itinerary);
+    } catch (err) {
+      console.error('여행 일정 생성 API 오류:', err);
+      setError('여행 일정을 생성하는데 실패했습니다.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleRegenerate = () => {
-    Alert.alert('일정 재생성', 'GPT API를 호출하여 일정을 다시 생성합니다.');
+    fetchRecommendedRoute();
   };
 
   const handleEdit = () => {
     Alert.alert('직접 수정', '직접 수정 화면으로 이동합니다.');
   };
+
+  if (loading) {
+    return (
+      <SafeAreaView style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#197C6B" />
+        <Text style={styles.loadingText}>여행 일정을 생성하는 중...</Text>
+      </SafeAreaView>
+    );
+  }
+
+  if (error) {
+    return (
+      <SafeAreaView style={styles.errorContainer}>
+        <Text style={styles.errorText}>{error}</Text>
+        <TouchableOpacity style={styles.retryButton} onPress={fetchRecommendedRoute}>
+          <Text style={styles.retryButtonText}>다시 시도</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#F6FDFD' }}>
@@ -30,7 +83,7 @@ const RouteScreen = () => {
         <Text style={styles.title}>여행 일정</Text>
       </View>
       <FlatList
-        data={DUMMY_ROUTES}
+        data={routes}
         keyExtractor={(item) => item.day.toString()}
         contentContainerStyle={styles.listContainer}
         renderItem={({ item }) => (
@@ -134,6 +187,42 @@ const styles = StyleSheet.create({
   },
   nextButton: {
     width: '100%',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F6FDFD',
+  },
+  loadingText: {
+    marginTop: 12,
+    fontSize: 16,
+    color: '#197C6B',
+    fontWeight: '500',
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F6FDFD',
+    padding: 24,
+  },
+  errorText: {
+    fontSize: 16,
+    color: '#FF6B6B',
+    textAlign: 'center',
+    marginBottom: 24,
+  },
+  retryButton: {
+    backgroundColor: '#197C6B',
+    paddingHorizontal: 24,
+    paddingVertical: 12,
+    borderRadius: 8,
+  },
+  retryButtonText: {
+    color: '#fff',
+    fontSize: 16,
+    fontWeight: '600',
   },
 });
 

@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RootStackParamList } from '../navigation/StackNavigator';
+import { useTripStore } from '../store/useTripStore';
 
 const HOTEL_LIST = [
   {
@@ -49,9 +50,22 @@ const DUMMY_LODGINGS = [
 const LodgingScreen = () => {
   const [selected, setSelected] = useState<{ [day: number]: string }>({});
   const navigation = useNavigation<DrawerNavigationProp<RootStackParamList, 'MainStack'>>();
+  const { setSelectedLodging } = useTripStore();
 
   const handleSelect = (day: number, lodging: string) => {
     setSelected((prev) => ({ ...prev, [day]: lodging }));
+  };
+
+  const saveLodgingToStore = () => {
+    const firstDay = Object.keys(selected)[0];
+    if (firstDay) {
+      setSelectedLodging({
+        name: selected[Number(firstDay)],
+        address: '',
+        checkIn: null,
+        checkOut: null,
+      });
+    }
   };
 
   return (
@@ -105,7 +119,10 @@ const LodgingScreen = () => {
         <CustomButton
           title="다음"
           type="primary"
-          onPress={() => navigation.navigate('MainStack', { screen: 'Final' })}
+          onPress={() => {
+            saveLodgingToStore();
+            navigation.navigate('MainStack', { screen: 'Final' });
+          }}
           style={styles.nextButton}
         />
       </View>

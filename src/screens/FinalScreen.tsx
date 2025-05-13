@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, FlatList, Alert, Dimensions, Platform } from 'react-native';
 import MapView, { Polyline, Marker, LatLng, PROVIDER_GOOGLE } from 'react-native-maps';
 import CustomBackButton from '../components/CustomBackButton';
 import CustomButton from '../components/CustomButton';
+import { useTripStore } from '../store/useTripStore';
+import { useNavigation } from '@react-navigation/native';
+import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { RootStackParamList } from '../navigation/StackNavigator';
+import { Modal, ScrollView, Button } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
@@ -47,6 +52,9 @@ const getAllRouteCoords = () => {
 
 const FinalScreen = () => {
   const routeCoords = getAllRouteCoords();
+  const [modalVisible, setModalVisible] = useState(false);
+  const navigation = useNavigation<DrawerNavigationProp<RootStackParamList, 'MainStack'>>();
+  const tripState = useTripStore();
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#F6FDFD' }}>
@@ -91,10 +99,39 @@ const FinalScreen = () => {
         <CustomButton
           title="저장하기"
           type="primary"
-          onPress={() => Alert.alert('플랜이 저장되었습니다')}
+          onPress={() => setModalVisible(true)}
           style={styles.saveButton}
         />
       </View>
+      <Modal
+        visible={modalVisible}
+        animationType="slide"
+        transparent={true}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.4)', justifyContent: 'center', alignItems: 'center' }}>
+          <View style={{ backgroundColor: '#fff', borderRadius: 16, padding: 24, width: '85%', maxHeight: '80%' }}>
+            <Text style={{ fontWeight: 'bold', fontSize: 18, marginBottom: 12, color: '#197C6B' }}>스토어 저장값 미리보기</Text>
+            <ScrollView style={{ maxHeight: 350 }}>
+              <Text style={{ fontSize: 13, color: '#333' }}>{JSON.stringify(tripState, null, 2)}</Text>
+            </ScrollView>
+            <Button
+              title="확인하고 홈으로"
+              onPress={() => {
+                setModalVisible(false);
+                tripState.clearTrip();
+                navigation.reset({
+                  index: 0,
+                  routes: [
+                    { name: 'MainStack', params: { screen: 'Home' } }
+                  ],
+                });
+              }}
+              color="#1CB5A3"
+            />
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 };

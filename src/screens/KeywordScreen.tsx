@@ -6,6 +6,7 @@ import CustomButton from '../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RootStackParamList } from '../navigation/StackNavigator';
+import { useTripStore } from '../store/useTripStore';
 
 const SUGGESTED_KEYWORDS = [
   '액티비티', '산', '강', '호수', '맛집', '바다', '휴양', '정글', '캠핑', '관광'
@@ -13,17 +14,15 @@ const SUGGESTED_KEYWORDS = [
 
 const KeywordScreen = () => {
   const [search, setSearch] = useState('');
-  const [selected, setSelected] = useState<string[]>(['도심', '쇼핑']);
+  const { selectedKeywords, addKeyword, removeKeyword } = useTripStore();
   const navigation = useNavigation<DrawerNavigationProp<RootStackParamList, 'MainStack'>>();
 
-  const addKeyword = (keyword: string) => {
-    if (!selected.includes(keyword)) {
-      setSelected([...selected, keyword]);
+  const handleAddKeyword = (keyword: string) => {
+    const trimmed = keyword.trim();
+    if (trimmed && !selectedKeywords.includes(trimmed)) {
+      addKeyword(trimmed);
+      setSearch('');
     }
-  };
-
-  const removeKeyword = (keyword: string) => {
-    setSelected(selected.filter(k => k !== keyword));
   };
 
   return (
@@ -40,13 +39,17 @@ const KeywordScreen = () => {
             value={search}
             onChangeText={setSearch}
             placeholderTextColor="#B0B0B0"
+            onSubmitEditing={() => handleAddKeyword(search)}
           />
-          <TouchableOpacity style={styles.searchIcon}>
+          <TouchableOpacity
+            style={styles.searchIcon}
+            onPress={() => handleAddKeyword(search)}
+          >
             <Icon name="search" size={22} color="#197C6B" />
           </TouchableOpacity>
         </View>
         <View style={styles.selectedWrapper}>
-          {selected.map((keyword) => (
+          {selectedKeywords.map((keyword) => (
             <View key={keyword} style={styles.selectedTag}>
               <Text style={styles.selectedTagText}>{keyword}</Text>
               <TouchableOpacity onPress={() => removeKeyword(keyword)}>
@@ -65,9 +68,9 @@ const KeywordScreen = () => {
             <TouchableOpacity
               style={styles.keywordTag}
               onPress={() => addKeyword(item)}
-              disabled={selected.includes(item)}
+              disabled={selectedKeywords.includes(item)}
             >
-              <Text style={[styles.keywordTagText, selected.includes(item) && { color: '#B0B0B0' }]}>{item}</Text>
+              <Text style={[styles.keywordTagText, selectedKeywords.includes(item) && { color: '#B0B0B0' }]}>{item}</Text>
             </TouchableOpacity>
           )}
         />
