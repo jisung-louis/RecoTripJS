@@ -70,7 +70,7 @@ const LandmarkScreen = () => {
     selected.forEach((placeId) => {
       const place = places.find(p => p.place_id === placeId);
       if (place) {
-        addLandmark(place.name);
+        addLandmark(place);
       }
     });
   };

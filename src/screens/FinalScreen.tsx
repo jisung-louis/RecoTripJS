@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, SafeAreaView, FlatList, Alert, Dimensions, Plat
 import MapView, { Polyline, Marker, LatLng, PROVIDER_GOOGLE } from 'react-native-maps';
 import CustomBackButton from '../components/CustomBackButton';
 import CustomButton from '../components/CustomButton';
-import { useTripStore } from '../store/useTripStore';
+import { useTripStore, Place, RouteDay } from '../store/useTripStore';
 import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RootStackParamList } from '../navigation/StackNavigator';
@@ -11,50 +11,58 @@ import { Modal, ScrollView, Button } from 'react-native';
 
 const { width } = Dimensions.get('window');
 
-// 더미 일정 및 위치 데이터
-const DUMMY_PLAN = [
-  {
-    day: 1,
-    places: [
-      { name: '도쿄 타워', latlng: { latitude: 35.6586, longitude: 139.7454 } },
-      { name: '하라주쿠', latlng: { latitude: 35.6702, longitude: 139.7020 } },
-    ],
-    lodging: { name: '호텔A', latlng: { latitude: 35.6895, longitude: 139.6917 } },
-  },
-  {
-    day: 2,
-    places: [
-      { name: '아사쿠사', latlng: { latitude: 35.7148, longitude: 139.7967 } },
-      { name: '시부야 스크램블', latlng: { latitude: 35.6595, longitude: 139.7005 } },
-      { name: '우에노 공원', latlng: { latitude: 35.7156, longitude: 139.7745 } },
-    ],
-    lodging: { name: '호텔C', latlng: { latitude: 35.6895, longitude: 139.6917 } },
-  },
-  {
-    day: 3,
-    places: [
-      { name: '도쿄 국립박물관', latlng: { latitude: 35.7188, longitude: 139.7765 } },
-      { name: '오다이바', latlng: { latitude: 35.6272, longitude: 139.7768 } },
-    ],
-    lodging: { name: '호텔E', latlng: { latitude: 35.6895, longitude: 139.6917 } },
-  },
-];
+interface PlanPlace {
+  name: string;
+  latlng: LatLng | null;
+}
+interface PlanDay {
+  day: number;
+  places: PlanPlace[];
+  lodging: { name: string; latlng: LatLng | null } | null;
+}
 
-// 지도에 표시할 모든 경로(관광지+숙소) 좌표 추출
-const getAllRouteCoords = () => {
+// 실제 일정, 관광지, 숙소 데이터를 기반으로 지도 경로 및 리스트 생성
+const getPlanData = (routes: RouteDay[], landmarks: Place[], lodging: { [day: number]: any }): PlanDay[] => {
+  return routes.map((route: RouteDay) => {
+    const places: PlanPlace[] = route.places.map((name: string) => {
+      const found = landmarks.find((p: Place) => p.name === name);
+      return found
+        ? { name: found.name, latlng: { latitude: found.location.lat, longitude: found.location.lng } }
+        : { name, latlng: null };
+    });
+    // day별 숙소 정보
+    let lodgingInfo: { name: string; latlng: LatLng | null } | null = null;
+    const hotel = lodging && lodging[route.day];
+    if (hotel) {
+      lodgingInfo = {
+        name: hotel.name,
+        latlng: hotel.location
+          ? { latitude: hotel.location.lat, longitude: hotel.location.lng }
+          : null,
+      };
+    }
+    return { day: route.day, places, lodging: lodgingInfo };
+  });
+};
+
+const getAllRouteCoords = (plan: PlanDay[]): LatLng[] => {
   const coords: LatLng[] = [];
-  DUMMY_PLAN.forEach((day) => {
-    day.places.forEach((p) => coords.push(p.latlng));
-    coords.push(day.lodging.latlng);
+  plan.forEach((day: PlanDay) => {
+    day.places.forEach((p: PlanPlace) => p.latlng && coords.push(p.latlng));
+    if (day.lodging && day.lodging.latlng) coords.push(day.lodging.latlng);
   });
   return coords;
 };
 
 const FinalScreen = () => {
-  const routeCoords = getAllRouteCoords();
-  const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation<DrawerNavigationProp<RootStackParamList, 'MainStack'>>();
   const tripState = useTripStore();
+  const { routes, selectedLandmarks, selectedLodging } = tripState;
+
+  // 실제 데이터 기반 플랜 생성
+  const plan: PlanDay[] = getPlanData(routes, selectedLandmarks, selectedLodging);
+  const routeCoords: LatLng[] = getAllRouteCoords(plan);
+  const [modalVisible, setModalVisible] = useState(false);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#F6FDFD' }}>
@@ -66,8 +74,8 @@ const FinalScreen = () => {
         provider={Platform.OS === 'android' ? PROVIDER_GOOGLE : undefined}
         style={styles.map}
         initialRegion={{
-          latitude: 35.6895,
-          longitude: 139.6917,
+          latitude: routeCoords[0]?.latitude || 35.6895,
+          longitude: routeCoords[0]?.longitude || 139.6917,
           latitudeDelta: 0.1,
           longitudeDelta: 0.1,
         }}
@@ -77,21 +85,23 @@ const FinalScreen = () => {
           strokeColor="#1CB5A3"
           strokeWidth={4}
         />
-        {routeCoords.map((coord, idx) => (
+        {routeCoords.map((coord: LatLng, idx: number) => (
           <Marker key={idx} coordinate={coord} pinColor={idx % 2 === 0 ? '#1CB5A3' : '#5CB8B2'} />
         ))}
       </MapView>
       <FlatList
-        data={DUMMY_PLAN}
-        keyExtractor={(item) => item.day.toString()}
+        data={plan}
+        keyExtractor={(item: PlanDay) => item.day.toString()}
         contentContainerStyle={styles.listContainer}
-        renderItem={({ item }) => (
+        renderItem={({ item }: { item: PlanDay }) => (
           <View style={styles.dayCard}>
             <Text style={styles.dayTitle}>{item.day}일차</Text>
-            {item.places.map((place, idx) => (
+            {item.places.map((place: PlanPlace, idx: number) => (
               <Text key={idx} style={styles.placeText}>• {place.name}</Text>
             ))}
-            <Text style={styles.lodgingTitle}>숙소: {item.lodging.name}</Text>
+            {item.lodging && item.lodging.name && (
+              <Text style={styles.lodgingTitle}>숙소: {item.lodging.name}</Text>
+            )}
           </View>
         )}
       />

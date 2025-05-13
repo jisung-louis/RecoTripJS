@@ -6,12 +6,12 @@ import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RootStackParamList } from '../navigation/StackNavigator';
 import { useTripStore } from '../store/useTripStore';
-import axios from 'axios';
+import { autoSchedule, Place, RouteDay } from '../utils/autoSchedule';
 
-interface RouteDay {
-  day: number;
-  places: string[];
-}
+// interface RouteDay {
+//   day: number;
+//   places: string[];
+// }
 
 const RouteScreen = () => {
   const [routes, setRoutes] = useState<RouteDay[]>([]);
@@ -19,6 +19,7 @@ const RouteScreen = () => {
   const [error, setError] = useState<string | null>(null);
   const navigation = useNavigation<DrawerNavigationProp<RootStackParamList, 'MainStack'>>();
   const { selectedCity, selectedLandmarks, startDate, endDate } = useTripStore();
+  const { setRoutes: saveRoutesToStore } = useTripStore();
 
   useEffect(() => {
     fetchRecommendedRoute();
@@ -28,20 +29,26 @@ const RouteScreen = () => {
     try {
       setLoading(true);
       setError(null);
-      
-      const response = await axios.post(
-        'https://recotrip-backend-production.up.railway.app/api/recommend/route',
-        {
-          city: selectedCity,
-          landmarks: selectedLandmarks,
-          startDate: startDate?.toISOString(),
-          endDate: endDate?.toISOString()
-        }
-      );
-      
-      setRoutes(response.data.itinerary);
+
+      console.log('🧭 [RouteScreen] 진입');
+      console.log('selectedLandmarks:', selectedLandmarks);
+      console.log('startDate:', startDate);
+      console.log('endDate:', endDate);
+
+      if (!selectedLandmarks || !startDate || !endDate) {
+        console.log('🚨 필요한 여행 정보가 없습니다. 일정 생성 중단');
+        setError('여행 정보가 부족합니다.');
+        setRoutes([]);
+        return;
+      }
+      // Place[]에서 name, lat, lng 추출
+      const landmarkNames = selectedLandmarks.map((p) => p.name);
+      const placeCoordinates = selectedLandmarks.map((p) => ({ name: p.name, lat: p.location.lat, lng: p.location.lng }));
+      const routePlan = autoSchedule(landmarkNames, startDate, endDate, placeCoordinates);
+      setRoutes(routePlan);
+      saveRoutesToStore(routePlan);
     } catch (err) {
-      console.error('여행 일정 생성 API 오류:', err);
+      console.error('여행 일정 생성 오류:', err);
       setError('여행 일정을 생성하는데 실패했습니다.');
     } finally {
       setLoading(false);

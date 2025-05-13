@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, FlatList, TouchableOpacity, Image } from 'react-native';
 import CustomBackButton from '../components/CustomBackButton';
 import CustomButton from '../components/CustomButton';
@@ -6,67 +6,101 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 import { RootStackParamList } from '../navigation/StackNavigator';
-import { useTripStore } from '../store/useTripStore';
+import { useTripStore, Place, Hotel } from '../store/useTripStore';
+import axios from 'axios';
 
-const HOTEL_LIST = [
-  {
-    name: '호텔A',
-    image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80',
-    desc: '도쿄 중심에 위치한 4성급 호텔',
-    rating: 4.7,
-  },
-  {
-    name: '호텔B',
-    image: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80',
-    desc: '합리적인 가격의 깔끔한 숙소',
-    rating: 4.3,
-  },
-  {
-    name: '호텔C',
-    image: 'https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?auto=format&fit=crop&w=400&q=80',
-    desc: '도쿄역 근처의 모던한 호텔',
-    rating: 4.5,
-  },
-  {
-    name: '호텔D',
-    image: 'https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80',
-    desc: '조용하고 쾌적한 숙소',
-    rating: 4.2,
-  },
-  {
-    name: '호텔E',
-    image: 'https://images.unsplash.com/photo-1502082553048-f009c37129b9?auto=format&fit=crop&w=400&q=80',
-    desc: '공항 접근성이 좋은 호텔',
-    rating: 4.6,
-  },
-];
-
-const DUMMY_LODGINGS = [
-  { day: 1, lodgings: HOTEL_LIST },
-  { day: 2, lodgings: HOTEL_LIST },
-  { day: 3, lodgings: HOTEL_LIST },
-];
+interface DayLodging {
+  day: number;
+  lodgings: Hotel[];
+}
 
 const LodgingScreen = () => {
   const [selected, setSelected] = useState<{ [day: number]: string }>({});
+  const [lodgings, setLodgings] = useState<DayLodging[]>([]);
+  const [loading, setLoading] = useState(true);
   const navigation = useNavigation<DrawerNavigationProp<RootStackParamList, 'MainStack'>>();
-  const { setSelectedLodging } = useTripStore();
+  const { setSelectedLodging, routes, selectedLandmarks } = useTripStore();
+
+  useEffect(() => {
+    console.log('==== [LodgingScreen] routes ====', routes);
+    console.log('==== [LodgingScreen] selectedLandmarks ====', selectedLandmarks);
+    fetchLodgings();
+  }, [routes, selectedLandmarks]);
+
+  const fetchLodgings = async () => {
+    if (!routes || routes.length === 0 || !selectedLandmarks || selectedLandmarks.length === 0) {
+      console.log('[진단] routes 또는 selectedLandmarks가 비어 있음');
+      setLodgings([]);
+      setLoading(false);
+      return;
+    }
+    setLoading(true);
+    const newLodgings: DayLodging[] = [];
+    for (const route of routes) {
+      const placeNames: string[] = route.places;
+      const coords = placeNames
+        .map((name) => selectedLandmarks.find((p) => p.name === name)?.location)
+        .filter((loc): loc is { lat: number; lng: number } => !!loc);
+      let centroid = { lat: 0, lng: 0 };
+      if (coords.length > 0) {
+        centroid.lat = coords.reduce((sum, c) => sum + c.lat, 0) / coords.length;
+        centroid.lng = coords.reduce((sum, c) => sum + c.lng, 0) / coords.length;
+      }
+      console.log(`[진단] day ${route.day} coords:`, coords, 'centroid:', centroid);
+      let hotels: Hotel[] = [];
+      try {
+        const res = await axios.get('https://recotrip-backend-production.up.railway.app/api/hotels', {
+          params: {
+            lat: centroid.lat,
+            lng: centroid.lng,
+            radius: 1500,
+          },
+        });
+        console.log(`[진단] day ${route.day} API response:`, res.data);
+        hotels = (res.data.hotels || []).map((item: any) => ({
+          name: item.name,
+          image: item.photo || 'https://via.placeholder.com/400x200?text=No+Image',
+          desc: item.address || '',
+          rating: item.rating || 0,
+        }));
+      } catch (e) {
+        console.error(`[진단] day ${route.day} Hotel API error:`, e);
+        hotels = [];
+      }
+      newLodgings.push({ day: route.day, lodgings: hotels });
+    }
+    setLodgings(newLodgings);
+    setLoading(false);
+  };
+
+  // N-1박만큼만 숙소 선택
+  const nights = Math.max(1, routes.length - 1);
+  const lodgingDays = lodgings.slice(0, nights);
 
   const handleSelect = (day: number, lodging: string) => {
     setSelected((prev) => ({ ...prev, [day]: lodging }));
   };
 
+  // day별로 Hotel 객체 전체를 저장
   const saveLodgingToStore = () => {
-    const firstDay = Object.keys(selected)[0];
-    if (firstDay) {
-      setSelectedLodging({
-        name: selected[Number(firstDay)],
-        address: '',
-        checkIn: null,
-        checkOut: null,
-      });
-    }
+    const lodgingObj: { [day: number]: Hotel } = {};
+    lodgingDays.forEach((dayLodging) => {
+      const selectedHotelName = selected[dayLodging.day];
+      const hotel = dayLodging.lodgings.find((h) => h.name === selectedHotelName);
+      if (hotel) {
+        lodgingObj[dayLodging.day] = hotel;
+      }
+    });
+    setSelectedLodging(lodgingObj);
   };
+
+  if (loading) {
+    return (
+      <SafeAreaView style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#F6FDFD' }}>
+        <Text style={{ fontSize: 16, color: '#197C6B', fontWeight: '500' }}>숙소를 불러오는 중...</Text>
+      </SafeAreaView>
+    );
+  }
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#F6FDFD' }}>
@@ -75,12 +109,12 @@ const LodgingScreen = () => {
         <Text style={styles.title}>숙소 선택</Text>
       </View>
       <FlatList
-        data={DUMMY_LODGINGS}
+        data={lodgingDays}
         keyExtractor={(item) => item.day.toString()}
         contentContainerStyle={styles.listContainer}
         renderItem={({ item }) => (
           <View style={styles.dayCard}>
-            <Text style={styles.dayTitle}>{item.day}일차</Text>
+            <Text style={styles.dayTitle}>{item.day}일차 숙소</Text>
             <FlatList
               data={item.lodgings}
               keyExtractor={(lodging) => lodging.name}
