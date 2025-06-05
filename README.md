@@ -1,97 +1,88 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# 🚀 RecoTrip
 
-# Getting Started
+여행 일정을 추천하고 관리하는 모바일 애플리케이션입니다.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## ✨ 주요 기능
 
-## Step 1: Start Metro
+- 🗺️ 여행 일정 추천
+- 📅 일정 관리 및 공유
+- 🔍 장소 검색 및 저장
+- 👥 사용자 프로필 관리
+- 🔐 소셜 로그인 지원
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## 🛠 기술 스택
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+- React Native
+- TypeScript
+- Firebase (Authentication, Firestore)
+- React Navigation
+- Zustand (상태 관리)
+- React Native Maps
+- React Native SVG
 
-```sh
-# Using npm
-npm start
+## 🚀 시작하기
 
-# OR using Yarn
-yarn start
+### 필수 요구사항
+
+- Node.js >= 18
+- React Native CLI
+- Android Studio (Android 개발용)
+- Xcode (iOS 개발용, macOS 필요)
+- CocoaPods (iOS 개발용)
+
+### 설치 및 실행
+
+1. 저장소 클론
+```bash
+git clone https://github.com/jisung-louis/RecoTripJS.git
+cd RecoTripJS
 ```
 
-## Step 2: Build and run your app
+2. 의존성 설치
+```bash
+npm install
+```
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+3. iOS 의존성 설치 (macOS)
+```bash
+cd ios
+bundle install
+bundle exec pod install
+cd ..
+```
 
-### Android
+4. 개발 서버 실행
+```bash
+npm start
+```
 
-```sh
-# Using npm
+5. 앱 실행
+```bash
+# Android
 npm run android
 
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
-bundle exec pod install
-```
-
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
-
-```sh
-# Using npm
+# iOS
 npm run ios
-
-# OR using Yarn
-yarn ios
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+## 📱 앱 미리보기
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+[앱 스크린샷]
 
-## Step 3: Modify your app
+## 🤝 기여하기
 
-Now that you have successfully run the app, let's make changes!
+1. Fork the Project
+2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the Branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+## 📄 라이선스
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+이 프로젝트는 MIT 라이선스 하에 배포됩니다. 자세한 내용은 [LICENSE](LICENSE) 파일을 참조하세요.
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+## 📞 연락처
 
-## Congratulations! :tada:
+프로젝트 관리자 - [@jisung-louis](https://github.com/jisung-louis)
 
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+프로젝트 링크: [https://github.com/jisung-louis/RecoTripJS](https://github.com/jisung-louis/RecoTripJS)
