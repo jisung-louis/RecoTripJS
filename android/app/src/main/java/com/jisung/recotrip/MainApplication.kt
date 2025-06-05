@@ -1,4 +1,4 @@
-package com.recotrip
+package com.jisung.recotrip
 
 import android.app.Application
 import com.facebook.react.PackageList

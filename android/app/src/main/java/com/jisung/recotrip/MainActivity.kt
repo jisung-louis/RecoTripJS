@@ -1,4 +1,4 @@
-package com.recotrip
+package com.jisung.recotrip
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
